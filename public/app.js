@@ -10,30 +10,18 @@ document.getElementById("createLink").addEventListener("click", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("updateLink")
-    .addEventListener("click", toggleVisibility);
-
   const updateLink = document.getElementById("updateLink");
   updateLink.addEventListener("click", function () {
+    loadAndDisplayCharacterData();
+    toggleVisibility();
+  });
+
+  function loadAndDisplayCharacterData() {
     fetch("/api/characters")
       .then((res) => res.json())
       .then((data) => {
-        console.log("characters data", data);
         const characterContainer =
           document.getElementById("characterContainer");
-        const characterContainerBox = document.getElementById(
-          "characterContainerBox"
-        );
-
-        // Toggle the visibility of the character container box
-        if (characterContainerBox.style.display === "none") {
-          characterContainerBox.style.display = "block";
-          characterContainerBox.classList.add("centered");
-        } else {
-          characterContainerBox.style.display = "none";
-          characterContainerBox.classList.remove("centered");
-        }
 
         // Clear the existing character data in the container
         characterContainer.innerHTML = "";
@@ -41,13 +29,55 @@ document.addEventListener("DOMContentLoaded", function () {
         // Iterate over the character data and create HTML elements for each character
         data.forEach((character) => {
           const characterElement = document.createElement("div");
-          characterElement.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
+          characterElement.classList.add("character-item");
 
-          // Append the character element to the container
+          const characterText = document.createElement("span");
+          characterText.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
+          characterElement.appendChild(characterText);
+
+          const updateButton = document.createElement("button");
+          updateButton.textContent = "Update";
+          updateButton.addEventListener("click", () => {
+            // Handle update button click
+            updateCharacter(character);
+          });
+          characterElement.appendChild(updateButton);
+
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.addEventListener("click", () => {
+            // Handle delete button click
+            deleteCharacter(character);
+          });
+          characterElement.appendChild(deleteButton);
+
           characterContainer.appendChild(characterElement);
         });
       });
-  });
+  }
+
+  function toggleVisibility() {
+    const characterContainerBox = document.getElementById(
+      "characterContainerBox"
+    );
+    if (characterContainerBox.style.display === "none") {
+      characterContainerBox.style.display = "block";
+      characterContainerBox.classList.add("centered");
+    } else {
+      characterContainerBox.style.display = "none";
+      characterContainerBox.classList.remove("centered");
+    }
+  }
+
+  function updateCharacter(character) {
+    // Implement your update logic here
+    console.log("Update character:", character);
+  }
+
+  function deleteCharacter(character) {
+    // Implement your delete logic here
+    console.log("Delete character:", character);
+  }
 });
 
 document
@@ -77,25 +107,7 @@ document
           alert("Character created!");
           document.getElementById("characterForm").reset();
           // Retrieve updated character data after creation
-          fetch("/api/characters")
-            .then((res) => res.json())
-            .then((data) => {
-              console.log("characters data", data);
-              const characterContainer =
-                document.getElementById("characterContainer");
-
-              // Clear the existing character data in the container
-              characterContainer.innerHTML = "";
-
-              // Iterate over the character data and create HTML elements for each character
-              data.forEach((character) => {
-                const characterElement = document.createElement("div");
-                characterElement.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
-
-                // Append the character element to the container
-                characterContainer.appendChild(characterElement);
-              });
-            });
+          loadAndDisplayCharacterData();
         } else {
           console.log("Error saving character.");
         }

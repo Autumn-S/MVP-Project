@@ -106,3 +106,7 @@ a.site-logo {
   border: 2px solid black;
   border-radius: 5px;
 }
+
+.character-item button {
+  margin-left: 10px;
+}
