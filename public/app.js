@@ -1,84 +1,96 @@
-document.getElementById("createLink").addEventListener("click", function () {
-  const formBox = document.getElementById("formBox");
-  if (formBox.style.display === "none") {
-    formBox.style.display = "block";
-    formBox.classList.add("centered");
-  } else {
-    formBox.style.display = "none";
-    formBox.classList.remove("centered");
-  }
-});
+const formBox = document.getElementById("formBox");
+const createLink = document.getElementById("createLink");
+const updateLink = document.getElementById("updateLink");
+const characterForm = document.getElementById("characterForm");
+const charNameInput = document.getElementById("charName");
+const charLevelInput = document.getElementById("charLevel");
+const charClassInput = document.getElementById("charClass");
+const characterContainer = document.getElementById("characterContainer");
 
-document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("createLink")
-    .addEventListener("click", toggleVisibility);
+function toggleVisibility() {
+  formBox.style.display = formBox.style.display === "none" ? "block" : "none";
+  formBox.classList.toggle("centered");
+}
 
-  var updateLink = document.getElementById("updateLink");
-  updateLink.addEventListener("click", function () {
-    fetch("/api/characters")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // Process the retrieved data as needed
-      })
-      .catch((error) => {
-        console.error("Error retrieving characters:", error);
-      });
+function clearCharacterContainer() {
+  characterContainer.innerHTML = "";
+}
+
+function createCharacterElement(character) {
+  const characterElement = document.createElement("div");
+  characterElement.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
+  return characterElement;
+}
+
+function fetchCharacters() {
+  return fetch("/api/characters").then((res) => res.json());
+}
+
+function updateCharacterContainer(data) {
+  clearCharacterContainer();
+  data.forEach((character) => {
+    const characterElement = createCharacterElement(character);
+    characterContainer.appendChild(characterElement);
   });
-});
+}
 
-document
-  .getElementById("characterForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
+function resetCharacterForm() {
+  characterForm.reset();
+}
 
-    const charName = document.getElementById("charName").value;
-    const charLevel = document.getElementById("charLevel").value;
-    const charClass = document.getElementById("charClass").value;
+function showAlert(message) {
+  alert(message);
+}
 
-    const characterData = {
-      char_name: charName,
-      char_level: charLevel,
-      char_class: charClass,
-    };
+function handleError(error) {
+  console.log("Error:", error);
+}
 
-    fetch("/api/characters", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(characterData),
+createLink.addEventListener("click", toggleVisibility);
+
+updateLink.addEventListener("click", function () {
+  fetchCharacters()
+    .then((data) => {
+      console.log("characters data", data);
+      updateCharacterContainer(data);
     })
-      .then((response) => {
-        if (response.ok) {
-          alert("Character created!");
-          document.getElementById("characterForm").reset();
-          // Retrieve updated character data after creation
-          fetch("/api/characters")
-            .then((res) => res.json())
-            .then((data) => {
-              console.log("characters data", data);
-              const characterContainer =
-                document.getElementById("characterContainer");
+    .catch(handleError);
+});
 
-              // Clear the existing character data in the container
-              characterContainer.innerHTML = "";
+characterForm.addEventListener("submit", function (event) {
+  event.preventDefault();
 
-              // Iterate over the character data and create HTML elements for each character
-              data.forEach((character) => {
-                const characterElement = document.createElement("div");
-                characterElement.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
+  const charName = charNameInput.value;
+  const charLevel = charLevelInput.value;
+  const charClass = charClassInput.value;
 
-                // Append the character element to the container
-                characterContainer.appendChild(characterElement);
-              });
-            });
-        } else {
-          console.log("Error saving character.");
-        }
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-      });
-  });
+  const characterData = {
+    char_name: charName,
+    char_level: charLevel,
+    char_class: charClass,
+  };
+
+  fetch("/api/characters", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(characterData),
+  })
+    .then((response) => {
+      if (response.ok) {
+        showAlert("Character created!");
+        resetCharacterForm();
+        return fetchCharacters();
+      } else {
+        console.log("Error saving character.");
+      }
+    })
+    .then((data) => {
+      if (data) {
+        console.log("characters data", data);
+        updateCharacterContainer(data);
+      }
+    })
+    .catch(handleError);
+});
