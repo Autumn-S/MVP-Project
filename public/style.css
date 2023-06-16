@@ -45,9 +45,9 @@ a.site-logo {
 }
 /* navbar regular css end */
 
-#formBox,
-#characterContainerBox {
+#formBox {
   display: none;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -99,8 +99,4 @@ a.site-logo {
   background-color: #1f2126;
   border: 2px solid black;
   border-radius: 5px;
-}
-
-.character-item button {
-  margin-left: 10px;
 }
