@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diablo Character Creator</title>
-    <link href="/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
     <script async src="app.js"></script>
   </head>
   <body>
@@ -12,33 +12,35 @@
       <h1>Diablo 4 Character Creation</h1>
     </div>
     <div>
-      <form id="characterForm">
-        <div>
-          <label for="charName">Character Name:</label>
-          <input type="text" id="charName" required />
-        </div>
-        <br />
-        <div>
-          <label for="charLevel">Character Level:</label>
-          <input type="number" id="charLevel" required />
-        </div>
-        <br />
-        <div>
-          <label for="charClass">Character Class:</label>
-          <select id="charClass" required>
-            <option value="">-- Select Class --</option>
-            <option value="Druid">Druid</option>
-            <option value="Sorceress">Sorceress</option>
-            <option value="Necromancer">Necromancer</option>
-            <option value="Rogue">Rogue</option>
-            <option value="Barbarian">Barbarian</option>
-          </select>
-        </div>
-        <br />
-        <div>
-          <input type="submit" value="Create Character" />
-        </div>
-      </form>
+      <div id="formFrame">
+        <form id="characterForm">
+          <div>
+            <label for="charName">Character Name:</label>
+            <input type="text" id="charName" required />
+          </div>
+          <br />
+          <div>
+            <label for="charLevel">Character Level:</label>
+            <input type="number" id="charLevel" required />
+          </div>
+          <br />
+          <div>
+            <label for="charClass">Character Class:</label>
+            <select id="charClass" required>
+              <option value="">-- Select Class --</option>
+              <option value="Druid">Druid</option>
+              <option value="Sorceress">Sorceress</option>
+              <option value="Necromancer">Necromancer</option>
+              <option value="Rogue">Rogue</option>
+              <option value="Barbarian">Barbarian</option>
+            </select>
+          </div>
+          <br />
+          <div>
+            <input type="submit" value="Create Character" />
+          </div>
+        </form>
+      </div>
     </div>
   </body>
 </html>
