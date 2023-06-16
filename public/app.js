@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("createLink")
     .addEventListener("click", toggleVisibility);
+  document
+    .getElementById("updateLink")
+    .addEventListener("click", toggleVisibility);
 
   const updateLink = document.getElementById("updateLink");
   updateLink.addEventListener("click", function () {
@@ -22,6 +25,18 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("characters data", data);
         const characterContainer =
           document.getElementById("characterContainer");
+        const characterContainerBox = document.getElementById(
+          "characterContainerBox"
+        );
+
+        // Toggle the visibility of the character container box
+        if (characterContainerBox.style.display === "none") {
+          characterContainerBox.style.display = "block";
+          characterContainerBox.classList.add("centered");
+        } else {
+          characterContainerBox.style.display = "none";
+          characterContainerBox.classList.remove("centered");
+        }
 
         // Clear the existing character data in the container
         characterContainer.innerHTML = "";
@@ -35,21 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
           characterContainer.appendChild(characterElement);
         });
       });
-  });
-
-  updateLink.addEventListener("click", function () {
-    console.log("updateLink clicked");
-
-    const characterContainerBox = document.getElementById(
-      "characterContainerBox"
-    );
-    if (characterContainerBox.style.display === "none") {
-      characterContainerBox.style.display = "block";
-    } else {
-      characterContainerBox.style.display = "none";
-    }
-
-    // Perform any additional actions you want when the link is clicked
   });
 });
 
