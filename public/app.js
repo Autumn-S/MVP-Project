@@ -11,10 +11,10 @@ document.getElementById("createLink").addEventListener("click", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   const updateLink = document.getElementById("updateLink");
-  updateLink.addEventListener("click", toggleVisibility);
-
-  // Load character data on page load
-  loadCharacterData();
+  updateLink.addEventListener("click", function () {
+    loadCharacterData();
+    toggleVisibility();
+  });
 
   function loadCharacterData() {
     fetch("/api/characters")
@@ -38,9 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
           // Append the character element to the container
           characterContainer.appendChild(characterElement);
         });
-
-        // Toggle the visibility of the character container box
-        toggleVisibility();
       });
   }
 
