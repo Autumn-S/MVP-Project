@@ -72,6 +72,8 @@ document.getElementById("createLink").addEventListener("click", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  loadAndDisplayCharacterData(); // Fetch character data on page load
+
   const updateLink = document.getElementById("updateLink");
   updateLink.addEventListener("click", function () {
     loadAndDisplayCharacterData();
