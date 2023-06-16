@@ -45,7 +45,8 @@ a.site-logo {
 }
 /* navbar regular css end */
 
-#formBox {
+#formBox,
+#characterContainerBox {
   display: none;
   top: 50%;
   left: 50%;
