@@ -60,12 +60,8 @@ app.post("/api/characters", (req, res) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      if (error.message === "Character name already exists") {
-        res.status(409).json({ error: "Character name already exists" });
-      } else {
-        console.error("Error saving character:", error);
-        res.status(500).json({ error: "Error saving character" });
-      }
+      console.error("Error saving character:", error);
+      res.status(500).json({ error: "Error saving character" });
     });
 });
 
