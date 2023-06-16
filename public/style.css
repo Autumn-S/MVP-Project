@@ -10,32 +10,29 @@ body {
   background-size: cover;
 }
 
+/* navbar regular css start */
 .navbar-area {
   background: rgba(33, 42, 52, 0.6);
   border-bottom: 1px solid #000;
 }
-
 .site-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-.site-logo {
+a.site-logo {
   font-size: 26px;
   font-weight: 800;
   text-transform: uppercase;
   color: #c7d2e4;
   text-decoration: none;
 }
-
 .site-navbar ul {
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
 }
-
 .site-navbar ul li a {
   color: #c7d2e4;
   padding: 20px;
@@ -43,13 +40,12 @@ body {
   text-decoration: none;
   text-transform: uppercase;
 }
-
 .site-navbar ul li a:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+/* navbar regular css end */
 
-#formBox,
-#characterContainerBox {
+#formBox {
   display: none;
   top: 50%;
   left: 50%;
@@ -57,13 +53,46 @@ body {
 }
 
 .centered {
+  display: block;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-#formFrame,
+#formFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#characterForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  color: #c7d2e4;
+  gap: 0.2rem;
+  padding: 0.8rem;
+  width: fit-content;
+  background-color: #1f2126;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+#characterContainerBox {
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#containCharacterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #characterContainer {
   display: flex;
   flex-direction: column;
