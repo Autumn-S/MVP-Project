@@ -1,17 +1,10 @@
-// Function to toggle visibility of an element
 function toggleVisibility(elementId) {
   const element = document.getElementById(elementId);
-  if (element.style.display === "none") {
-    element.style.display = "block";
-    element.classList.add("centered");
-  } else {
-    element.style.display = "none";
-    element.classList.remove("centered");
-  }
+  element.style.display = element.style.display === "none" ? "block" : "none";
+  element.classList.toggle("centered");
 }
 
 function updateCharacter(character) {
-  // Send a PUT request to update the character
   fetch(`/api/characters/${character.id}`, {
     method: "PUT",
     headers: {
@@ -21,8 +14,7 @@ function updateCharacter(character) {
   })
     .then((response) => {
       if (response.ok) {
-        alert("Character updated!");
-        // Retrieve updated character data after update
+        alert("Character updated successfully!");
         loadAndDisplayCharacterData();
       } else {
         console.log("Error updating character.");
@@ -34,14 +26,12 @@ function updateCharacter(character) {
 }
 
 function deleteCharacter(character) {
-  // Send a DELETE request to delete the character
   fetch(`/api/characters/${character.id}`, {
     method: "DELETE",
   })
     .then((response) => {
       if (response.ok) {
-        alert("Character deleted!");
-        // Retrieve updated character data after deletion
+        alert("Character deleted successfully!");
         loadAndDisplayCharacterData();
       } else {
         console.log("Error deleting character.");
@@ -52,17 +42,13 @@ function deleteCharacter(character) {
     });
 }
 
-// Function to load and display character data
 function loadAndDisplayCharacterData() {
   fetch("/api/characters")
     .then((res) => res.json())
     .then((data) => {
       const characterContainer = document.getElementById("characterContainer");
-
-      // Clear the existing character data in the container
       characterContainer.innerHTML = "";
 
-      // Iterate over the character data and create HTML elements for each character
       data.forEach((character) => {
         const characterElement = document.createElement("div");
         characterElement.classList.add("character-item");
@@ -74,7 +60,6 @@ function loadAndDisplayCharacterData() {
         characterContainer.appendChild(characterElement);
       });
 
-      // Show the character container after loading the data
       toggleVisibility("characterContainerBox");
     })
     .catch((error) => {
@@ -82,7 +67,6 @@ function loadAndDisplayCharacterData() {
     });
 }
 
-// Event listeners
 document.getElementById("createLink").addEventListener("click", function () {
   toggleVisibility("formBox");
 });
@@ -97,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("characterForm")
     .addEventListener("submit", function (event) {
-      event.preventDefault(); // Prevent form submission
+      event.preventDefault();
 
       const charName = document.getElementById("charName").value;
       const charLevel = document.getElementById("charLevel").value;
@@ -118,10 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
       })
         .then((response) => {
           if (response.ok) {
-            alert("Character created!");
+            alert("Character created successfully!");
             document.getElementById("characterForm").reset();
-            // Retrieve updated character data after creation
-            loadAndDisplayCharacterData(); // Call the function here
+            loadAndDisplayCharacterData();
           } else {
             console.log("Error saving character.");
           }
