@@ -82,6 +82,10 @@ a.site-logo {
 }
 
 #containCharacterContainer {
+  display: flex;
+  width: fit-content;
+  border: 2px solid black;
+  border-radius: 5px;
   color: #c7d2e4;
   text-align: center;
   background-color: #1f2126;
