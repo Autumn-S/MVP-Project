@@ -12,20 +12,24 @@ document.getElementById("createLink").addEventListener("click", function () {
 document.addEventListener("DOMContentLoaded", function () {
   const updateLink = document.getElementById("updateLink");
   updateLink.addEventListener("click", function () {
-    loadCharacterData();
+    loadAndDisplayCharacterData();
     toggleVisibility();
   });
 
-  function loadCharacterData() {
+  document
+    .getElementById("characterForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent form submission
+      createCharacter();
+    });
+
+  function loadAndDisplayCharacterData() {
     fetch("/api/characters")
       .then((res) => res.json())
       .then((data) => {
         console.log("characters data", data);
         const characterContainer =
           document.getElementById("characterContainer");
-        const characterContainerBox = document.getElementById(
-          "characterContainerBox"
-        );
 
         // Clear the existing character data in the container
         characterContainer.innerHTML = "";
@@ -38,6 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
           // Append the character element to the container
           characterContainer.appendChild(characterElement);
         });
+      })
+      .catch((error) => {
+        console.log("Error:", error);
       });
   }
 
@@ -53,13 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
       characterContainerBox.classList.remove("centered");
     }
   }
-});
 
-document
-  .getElementById("characterForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
-
+  function createCharacter() {
     const charName = document.getElementById("charName").value;
     const charLevel = document.getElementById("charLevel").value;
     const charClass = document.getElementById("charClass").value;
@@ -81,26 +83,7 @@ document
         if (response.ok) {
           alert("Character created!");
           document.getElementById("characterForm").reset();
-          // Retrieve updated character data after creation
-          fetch("/api/characters")
-            .then((res) => res.json())
-            .then((data) => {
-              console.log("characters data", data);
-              const characterContainer =
-                document.getElementById("characterContainer");
-
-              // Clear the existing character data in the container
-              characterContainer.innerHTML = "";
-
-              // Iterate over the character data and create HTML elements for each character
-              data.forEach((character) => {
-                const characterElement = document.createElement("div");
-                characterElement.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
-
-                // Append the character element to the container
-                characterContainer.appendChild(characterElement);
-              });
-            });
+          loadAndDisplayCharacterData();
         } else {
           console.log("Error saving character.");
         }
@@ -108,4 +91,5 @@ document
       .catch((error) => {
         console.log("Error:", error);
       });
-  });
+  }
+});
