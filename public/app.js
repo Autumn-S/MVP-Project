@@ -51,8 +51,7 @@ function loadAndDisplayCharacterData() {
 
       data.forEach((character) => {
         const characterElement = document.createElement("div");
-        characterText.textContent = `Name: ${character.char_name} Level: ${character.char_level} Class: ${character.char_class}`;
-        characterElement.appendChild(characterText);
+        characterElement.textContent = `Name: ${character.char_name} Level: ${character.char_level} Class: ${character.char_class}`;
         characterContainer.appendChild(characterElement);
       });
       toggleVisibility("characterContainerBox");
@@ -71,8 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const updateLink = document.getElementById("updateLink");
   updateLink.addEventListener("click", function () {
-    loadAndDisplayCharacterData();
     toggleVisibility("characterContainerBox");
+    loadAndDisplayCharacterData();
   });
 
   document
