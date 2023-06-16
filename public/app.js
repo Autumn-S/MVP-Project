@@ -22,17 +22,15 @@ document
     })
       .then((response) => {
         if (response.ok) {
-          alert("Character created!");
-          document.getElementById("characterForm").reset();
-          // Retrieve updated character data after creation
-          fetch("/api/characters")
-            .then((res) => res.json())
-            .then((data) => {
-              console.log("characters data", data);
-            });
+          return response.json();
         } else {
-          console.log("Error saving character.");
+          throw new Error("Error saving character.");
         }
+      })
+      .then((data) => {
+        alert("Character created!");
+        document.getElementById("characterForm").reset();
+        console.log("characters data", data);
       })
       .catch((error) => {
         console.log("Error:", error);
