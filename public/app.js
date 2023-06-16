@@ -22,7 +22,7 @@ document
     })
       .then((response) => {
         if (response.ok) {
-          console.log("Character created!");
+          alert("Character created!");
           document.getElementById("characterForm").reset();
           // Retrieve updated character data after creation
           fetch("/api/characters")

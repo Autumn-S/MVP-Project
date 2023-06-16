@@ -17,17 +17,64 @@ app.get("/api/characters", (_, res) => {
   });
 });
 
+app.get("/api/characters/:id", (req, res) => {
+  const characterId = req.params.id;
+
+  sql`SELECT * FROM characters WHERE id = ${characterId}`
+    .then((data) => {
+      if (data.length === 0) {
+        res.status(404).json({ error: "Character not found" });
+      } else {
+        res.json(data[0]);
+      }
+    })
+    .catch((error) => {
+      console.error("Error retrieving character:", error);
+      res.status(500).json({ error: "Error retrieving character" });
+    });
+});
+
 app.post("/api/characters", (req, res) => {
   const { char_name, char_level, char_class } = req.body;
 
-  sql`INSERT INTO characters (char_name, char_level, char_class)
-       VALUES (${char_name}, ${char_level}, ${char_class})`
+  // Validate char_level
+  const level = parseInt(char_level);
+  if (isNaN(level) || level < 1 || level > 100) {
+    return res.status(400).json({ error: "Invalid character level" });
+  }
+
+  // Check if char_name already exists
+  sql`SELECT COUNT(*) AS count FROM characters WHERE char_name = ${char_name}`
+    .then(([result]) => {
+      const count = result.count;
+
+      if (count > 0) {
+        return res.status(409).json({ error: "Character name already exists" });
+      }
+
+      // Insert the new character
+      return sql`INSERT INTO characters (char_name, char_level, char_class)
+                  VALUES (${char_name}, ${level}, ${char_class})`;
+    })
     .then(() => {
       res.sendStatus(200);
     })
     .catch((error) => {
       console.error("Error saving character:", error);
       res.status(500).json({ error: "Error saving character" });
+    });
+});
+
+app.delete("/api/characters/:id", (req, res) => {
+  const characterId = req.params.id;
+
+  sql`DELETE FROM characters WHERE id = ${characterId}`
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error("Error deleting character:", error);
+      res.status(500).json({ error: "Error deleting character" });
     });
 });
 
