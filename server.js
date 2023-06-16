@@ -54,14 +54,18 @@ app.post("/api/characters", (req, res) => {
 
       // Insert the new character
       return sql`INSERT INTO characters (char_name, char_level, char_class)
-                  VALUES (${char_name}, ${level}, ${char_class})`;
+                    VALUES (${char_name}, ${level}, ${char_class})`;
     })
     .then(() => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.error("Error saving character:", error);
-      res.status(500).json({ error: "Error saving character" });
+      if (error.message === "Character name already exists") {
+        res.status(409).json({ error: "Character name already exists" });
+      } else {
+        console.error("Error saving character:", error);
+        res.status(500).json({ error: "Error saving character" });
+      }
     });
 });
 
