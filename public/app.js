@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("createLink")
     .addEventListener("click", toggleVisibility);
 
-  var updateLink = document.getElementById("updateLink");
+  const updateLink = document.getElementById("updateLink");
   updateLink.addEventListener("click", function () {
     fetch("/api/characters")
       .then((res) => res.json())
@@ -37,10 +37,18 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 
-  // Add event listener to the "updateLink" element
   updateLink.addEventListener("click", function () {
-    // Your code to handle the onclick event of "updateLink" goes here
     console.log("updateLink clicked");
+
+    const characterContainerBox = document.getElementById(
+      "characterContainerBox"
+    );
+    if (characterContainerBox.style.display === "none") {
+      characterContainerBox.style.display = "block";
+    } else {
+      characterContainerBox.style.display = "none";
+    }
+
     // Perform any additional actions you want when the link is clicked
   });
 });
