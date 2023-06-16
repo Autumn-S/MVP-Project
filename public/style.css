@@ -80,3 +80,9 @@ a.site-logo {
   border: 2px solid black;
   border-radius: 5px;
 }
+
+#containCharacterContainer {
+  color: #c7d2e4;
+  text-align: center;
+  background-color: #1f2126;
+}
