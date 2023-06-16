@@ -36,6 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
   });
+
+  // Add event listener to the "updateLink" element
+  updateLink.addEventListener("click", function () {
+    // Your code to handle the onclick event of "updateLink" goes here
+    console.log("updateLink clicked");
+    // Perform any additional actions you want when the link is clicked
+  });
 });
 
 document
