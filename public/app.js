@@ -51,15 +51,10 @@ function loadAndDisplayCharacterData() {
 
       data.forEach((character) => {
         const characterElement = document.createElement("div");
-        characterElement.classList.add("character-item");
-
-        const characterText = document.createElement("span");
-        characterText.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
+        characterText.textContent = `Name: ${character.char_name} Level: ${character.char_level} Class: ${character.char_class}`;
         characterElement.appendChild(characterText);
-
         characterContainer.appendChild(characterElement);
       });
-
       toggleVisibility("characterContainerBox");
     })
     .catch((error) => {
@@ -105,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((response) => {
           if (response.ok) {
             alert("Character created successfully!");
-            document.getElementById("characterForm").reset();
+            loadAndDisplayCharacterData();
           } else {
             console.log("Error saving character.");
           }
