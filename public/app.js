@@ -29,6 +29,20 @@ document
             .then((res) => res.json())
             .then((data) => {
               console.log("characters data", data);
+              const characterContainer =
+                document.getElementById("characterContainer");
+
+              // Clear the existing character data in the container
+              characterContainer.innerHTML = "";
+
+              // Iterate over the character data and create HTML elements for each character
+              data.forEach((character) => {
+                const characterElement = document.createElement("div");
+                characterElement.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
+
+                // Append the character element to the container
+                characterContainer.appendChild(characterElement);
+              });
             });
         } else {
           console.log("Error saving character.");
