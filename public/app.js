@@ -1,3 +1,33 @@
+document.getElementById("createLink").addEventListener("click", function () {
+  const formBox = document.getElementById("formBox");
+  if (formBox.style.display === "none") {
+    formBox.style.display = "block";
+    formBox.classList.add("centered");
+  } else {
+    formBox.style.display = "none";
+    formBox.classList.remove("centered");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("createLink")
+    .addEventListener("click", toggleVisibility);
+
+  var updateLink = document.getElementById("updateLink");
+  updateLink.addEventListener("click", function () {
+    fetch("/api/characters")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // Process the retrieved data as needed
+      })
+      .catch((error) => {
+        console.error("Error retrieving characters:", error);
+      });
+  });
+});
+
 document
   .getElementById("characterForm")
   .addEventListener("submit", function (event) {

@@ -8,10 +8,30 @@
     <script async src="app.js"></script>
   </head>
   <body>
-    <div>
-      <h1>Diablo 4 Character Creation</h1>
-    </div>
-    <div>
+    <header class="header-area">
+      <!-- site-navbar start -->
+      <div class="navbar-area">
+        <div class="container">
+          <nav class="site-navbar">
+            <!-- site logo -->
+            <a href="#home" class="site-logo">Diablo Character Creator</a>
+
+            <!-- site menu/nav -->
+            <ul>
+              <li><a href="#">home</a></li>
+              <li><a href="#">about</a></li>
+              <li>
+                <a href="#" id="createLink" onclick="toggleVisibility()"
+                  >create</a
+                >
+              </li>
+              <li><a href="#" id="updateLink">update</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div id="formBox">
       <div id="formFrame">
         <form id="characterForm">
           <div>
