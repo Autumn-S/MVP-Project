@@ -71,24 +71,11 @@ function loadAndDisplayCharacterData() {
         characterText.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
         characterElement.appendChild(characterText);
 
-        const updateButton = document.createElement("button");
-        updateButton.textContent = "Update";
-        updateButton.addEventListener("click", () => {
-          // Handle update button click
-          updateCharacter(character);
-        });
-        characterElement.appendChild(updateButton);
-
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.addEventListener("click", () => {
-          // Handle delete button click
-          deleteCharacter(character);
-        });
-        characterElement.appendChild(deleteButton);
-
         characterContainer.appendChild(characterElement);
       });
+    })
+    .catch((error) => {
+      console.log("Error:", error);
     });
 }
 
