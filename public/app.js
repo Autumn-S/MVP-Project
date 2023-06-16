@@ -10,13 +10,12 @@ document.getElementById("createLink").addEventListener("click", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("updateLink")
+    .addEventListener("click", toggleVisibility);
+
   const updateLink = document.getElementById("updateLink");
-  updateLink.addEventListener("click", toggleVisibility);
-
-  // Load character data on page load
-  loadCharacterData();
-
-  function loadCharacterData() {
+  updateLink.addEventListener("click", function () {
     fetch("/api/characters")
       .then((res) => res.json())
       .then((data) => {
@@ -26,6 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const characterContainerBox = document.getElementById(
           "characterContainerBox"
         );
+
+        // Toggle the visibility of the character container box
+        if (characterContainerBox.style.display === "none") {
+          characterContainerBox.style.display = "block";
+          characterContainerBox.classList.add("centered");
+        } else {
+          characterContainerBox.style.display = "none";
+          characterContainerBox.classList.remove("centered");
+        }
 
         // Clear the existing character data in the container
         characterContainer.innerHTML = "";
@@ -38,24 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
           // Append the character element to the container
           characterContainer.appendChild(characterElement);
         });
-
-        // Toggle the visibility of the character container box
-        toggleVisibility();
       });
-  }
-
-  function toggleVisibility() {
-    const characterContainerBox = document.getElementById(
-      "characterContainerBox"
-    );
-    if (characterContainerBox.style.display === "none") {
-      characterContainerBox.style.display = "block";
-      characterContainerBox.classList.add("centered");
-    } else {
-      characterContainerBox.style.display = "none";
-      characterContainerBox.classList.remove("centered");
-    }
-  }
+  });
 });
 
 document
