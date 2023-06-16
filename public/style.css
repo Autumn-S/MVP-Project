@@ -81,6 +81,12 @@ a.site-logo {
   border-radius: 5px;
 }
 
+#containCharacterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #characterContainer {
   display: flex;
   flex-direction: column;
