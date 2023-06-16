@@ -106,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
           if (response.ok) {
             alert("Character created successfully!");
             document.getElementById("characterForm").reset();
-            loadAndDisplayCharacterData();
           } else {
             console.log("Error saving character.");
           }
