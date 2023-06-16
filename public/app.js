@@ -73,6 +73,9 @@ function loadAndDisplayCharacterData() {
 
         characterContainer.appendChild(characterElement);
       });
+
+      // Show the character container after loading the data
+      toggleVisibility("characterContainerBox");
     })
     .catch((error) => {
       console.log("Error:", error);
@@ -118,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Character created!");
             document.getElementById("characterForm").reset();
             // Retrieve updated character data after creation
-            loadAndDisplayCharacterData();
+            loadAndDisplayCharacterData(); // Call the function here
           } else {
             console.log("Error saving character.");
           }
