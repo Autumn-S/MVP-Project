@@ -72,11 +72,3 @@ a.site-logo {
   border: 2px solid black;
   border-radius: 5px;
 }
-
-#characterContainer {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
