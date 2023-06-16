@@ -11,9 +11,6 @@ document.getElementById("createLink").addEventListener("click", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   document
-    .getElementById("createLink")
-    .addEventListener("click", toggleVisibility);
-  document
     .getElementById("updateLink")
     .addEventListener("click", toggleVisibility);
 
