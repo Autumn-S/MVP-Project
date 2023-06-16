@@ -1,41 +1,50 @@
-document.getElementById("createLink").addEventListener("click", function () {
-  const formBox = document.getElementById("formBox");
-  if (formBox.style.display === "none") {
-    formBox.style.display = "block";
-    formBox.classList.add("centered");
-  } else {
-    formBox.style.display = "none";
-    formBox.classList.remove("centered");
-  }
-});
-
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("createLink")
-    .addEventListener("click", toggleVisibility);
-
+  var createLink = document.getElementById("createLink");
   var updateLink = document.getElementById("updateLink");
-  updateLink.addEventListener("click", function () {
+  var formBox = document.getElementById("formBox");
+  var characterContainer = document.getElementById("characterContainer");
+
+  createLink.addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    toggleVisibility(formBox);
+    hideElement(characterContainer);
+
+    // Additional logic for the "create" link
+  });
+
+  updateLink.addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    toggleVisibility(characterContainer);
+    hideElement(formBox);
+
+    // Additional logic for the "update" link
     fetch("/api/characters")
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        console.log("characters data", data);
-        const characterContainer =
-          document.getElementById("characterContainer");
-
-        // Clear the existing character data in the container
-        characterContainer.innerHTML = "";
-
-        // Iterate over the character data and create HTML elements for each character
-        data.forEach((character) => {
-          const characterElement = document.createElement("div");
-          characterElement.textContent = `${character.char_name} - Level ${character.char_level} ${character.char_class}`;
-
-          // Append the character element to the container
-          characterContainer.appendChild(characterElement);
-        });
+        console.log(data);
+        // Process the retrieved data as needed
+      })
+      .catch((error) => {
+        console.error("Error retrieving characters:", error);
       });
   });
+
+  function toggleVisibility(element) {
+    if (element.style.display === "none") {
+      element.style.display = "block";
+      element.classList.add("centered");
+    } else {
+      element.style.display = "none";
+      element.classList.remove("centered");
+    }
+  }
+
+  function hideElement(element) {
+    element.style.display = "none";
+    element.classList.remove("centered");
+  }
 });
 
 document
