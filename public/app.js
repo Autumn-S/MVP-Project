@@ -4,13 +4,18 @@ function toggleVisibility(elementId) {
   element.classList.toggle("centered");
 }
 
+const aboutLink = document.getElementById("aboutLink");
+aboutLink.addEventListener("click", function () {
+  toggleVisibility("aboutContainerBox");
+});
+
 const createLink = document.getElementById("createLink");
 createLink.addEventListener("click", function () {
   toggleVisibility("formBox");
 });
 
-const updateLink = document.getElementById("updateLink");
-updateLink.addEventListener("click", function () {
+const displayLink = document.getElementById("displayLink");
+displayLink.addEventListener("click", function () {
   toggleVisibility("characterContainerBox");
 });
 
