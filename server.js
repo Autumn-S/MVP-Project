@@ -55,7 +55,8 @@ app.post("/api/characters", async (req, res) => {
     }
 
     // Insert the new character
-    await sql`INSERT INTO characters (char_name, char_level, char_class)
+    const newChar =
+      await sql`INSERT INTO characters (char_name, char_level, char_class)
                 VALUES (${char_name}, ${level}, ${char_class})`;
 
     res.sendStatus(200);
@@ -69,8 +70,9 @@ app.delete("/api/characters/:id", async (req, res) => {
   try {
     const characterId = req.params.id;
 
-    await sql`DELETE FROM characters WHERE id = ${characterId}`;
-
+    const deleteResult =
+      await sql`DELETE FROM characters WHERE id = ${characterId}`;
+    console.log(deleteResult);
     res.sendStatus(200);
   } catch (error) {
     console.error("Error deleting character:", error);
