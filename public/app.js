@@ -137,11 +137,9 @@ function handleUpdate(event) {
   updateCharacter(characterData);
 }
 
-// Function to handle the delete button click
+//function to handle the delete event
 function handleDelete(event) {
   const characterDiv = event.target.closest(".character");
-  const charId = characterDiv.dataset.characterId; // Assuming the character ID is stored as a data attribute in the character div
-
   const charName = characterDiv.querySelector("h2").textContent;
   const charLevel = characterDiv
     .querySelector("p:nth-child(2)")
@@ -151,14 +149,33 @@ function handleDelete(event) {
     .textContent.split(" ")[1];
 
   const characterData = {
-    id: charId,
     char_name: charName,
     char_level: charLevel,
     char_class: charClass,
   };
 
-  // Call your deleteCharacter function with the characterData
-  deleteCharacter(characterData);
+  // Send a request to the server to retrieve the character ID
+  fetch(`/api/characters/find`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(characterData),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Error finding character.");
+      }
+    })
+    .then((data) => {
+      // Call your deleteCharacter function with the retrieved character ID
+      deleteCharacter(data.characterId);
+    })
+    .catch((error) => {
+      console.log("Error:", error);
+    });
 }
 
 // Function to handle form submission

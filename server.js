@@ -80,6 +80,30 @@ app.delete("/api/characters/:id", async (req, res) => {
   }
 });
 
+app.post("/api/characters/find", async (req, res) => {
+  try {
+    const { char_name, char_level, char_class } = req.body;
+
+    const data = await sql`
+      SELECT id FROM characters
+      WHERE char_name = ${char_name}
+        AND char_level = ${char_level}
+        AND char_class = ${char_class}
+      LIMIT 1
+    `;
+
+    if (data.length === 0) {
+      res.status(404).json({ error: "Character not found" });
+    } else {
+      const characterId = data[0].id;
+      res.json({ characterId });
+    }
+  } catch (error) {
+    console.error("Error finding character:", error);
+    res.status(500).json({ error: "Error finding character" });
+  }
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`Server listening on Port ${process.env.PORT}`);
 });

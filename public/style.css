@@ -85,18 +85,38 @@ img {
   filter: grayscale(75%);
 }
 
-#formFrame,
-#containCharacterContainer {
+#formFrame {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+#containCharacterContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 #characterForm,
-#characterContainer,
 #aboutContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: left;
+  color: #ded1cd;
+  text-shadow: 1.5px 1.5px rgb(28, 28, 28);
+  gap: 0.6rem;
+  padding: 1rem;
+  width: fit-content;
+  background-color: rgba(32, 14, 8, 0.599);
+  backdrop-filter: blur(1px);
+  border-radius: 5px;
+  box-shadow: 5px 15px 20px 10px rgba(0, 0, 0, 0.75);
+}
+
+#characterContainer {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   text-align: left;
   color: #ded1cd;
