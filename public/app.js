@@ -45,11 +45,11 @@ function deleteCharacter() {
 function displayCharacterData(characterData) {
   const characterDisplay = document.getElementById("characterDisplay");
   characterDisplay.innerHTML = `
-      <h2>Character Information</h2>
-      <p><strong>Name:</strong> ${characterData.char_name}</p>
-      <p><strong>Level:</strong> ${characterData.char_level}</p>
-      <p><strong>Class:</strong> ${characterData.char_class}</p>
-    `;
+        <h2>Character Information</h2>
+        <p><strong>Name:</strong> ${characterData.char_name}</p>
+        <p><strong>Level:</strong> ${characterData.char_level}</p>
+        <p><strong>Class:</strong> ${characterData.char_class}</p>
+      `;
 }
 
 function loadAndDisplayCharacterData() {
@@ -62,42 +62,28 @@ function loadAndDisplayCharacterData() {
       data.forEach((character) => {
         const characterElement = document.createElement("div");
         characterElement.textContent = `Name: ${character.char_name} Level: ${character.char_level} Class: ${character.char_class}`;
+
+        characterElement.addEventListener("click", function () {
+          displayCharacterData(character);
+        });
+
         characterContainer.appendChild(characterElement);
       });
-      toggleVisibility("characterContainerBox");
     })
     .catch((error) => {
       console.log("Error:", error);
     });
 }
 
-document.getElementById("createLink").addEventListener("click", function () {
-  toggleVisibility("formBox");
-});
-
 document.addEventListener("DOMContentLoaded", function () {
   loadAndDisplayCharacterData(); // Fetch character data on page load
-
-  const updateLink = document.getElementById("updateLink");
-  updateLink.addEventListener("click", function () {
-    toggleVisibility("characterContainerBox");
-    loadAndDisplayCharacterData();
-  });
 
   document
     .getElementById("characterForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const charName = document.getElementById("charName").value;
-      const charLevel = document.getElementById("charLevel").value;
-      const charClass = document.getElementById("charClass").value;
-
-      const characterData = {
-        char_name: charName,
-        char_level: charLevel,
-        char_class: charClass,
-      };
+      // ... code for creating a character ...
 
       fetch("/api/characters", {
         method: "POST",
