@@ -127,7 +127,7 @@ function handleUpdate(event) {
     .textContent.split(" ")[1];
 
   const characterData = {
-    id: charId,
+    id: id,
     char_name: charName,
     char_level: charLevel,
     char_class: charClass,
