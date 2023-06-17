@@ -129,3 +129,10 @@ img {
   border-radius: 5px;
   box-shadow: 5px 15px 20px 10px rgba(0, 0, 0, 0.75);
 }
+
+.character {
+  padding: 1rem;
+  background-color: rgba(15, 7, 5, 0.599);
+  box-shadow: 5px 15px 20px 10px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+}
