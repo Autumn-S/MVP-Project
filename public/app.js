@@ -4,54 +4,6 @@ function toggleVisibility(elementId) {
   element.classList.toggle("centered");
 }
 
-function updateCharacter(character) {
-  fetch("/api/characters/:id", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(character),
-  })
-    .then((response) => {
-      if (response.ok) {
-        alert("Character updated successfully!");
-        loadAndDisplayCharacterData();
-      } else {
-        console.log("Error updating character.");
-      }
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
-}
-
-function deleteCharacter() {
-  fetch("/api/characters/:id", {
-    method: "DELETE",
-  })
-    .then((response) => {
-      if (response.ok) {
-        alert("Character deleted successfully!");
-        loadAndDisplayCharacterData();
-      } else {
-        console.log("Error deleting character.");
-      }
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
-}
-
-function displayCharacterData(characterData) {
-  const characterDisplay = document.getElementById("characterDisplay");
-  characterDisplay.innerHTML = `
-      <h2>Character Information</h2>
-      <p><strong>Name:</strong> ${characterData.char_name}</p>
-      <p><strong>Level:</strong> ${characterData.char_level}</p>
-      <p><strong>Class:</strong> ${characterData.char_class}</p>
-    `;
-}
-
 function loadAndDisplayCharacterData() {
   fetch("/api/characters")
     .then((res) => res.json())
@@ -97,9 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((response) => {
           if (response.ok) {
             alert("Character created successfully!");
-            response.json().then((data) => {
-              displayCharacterData(data);
-            });
+            console.log(characterData);
           } else {
             console.log("Error saving character.");
           }
