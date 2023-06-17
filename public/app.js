@@ -74,7 +74,7 @@ function loadAndDisplayCharacterData() {
 
 // Function to delete a character
 function deleteCharacter(characterData) {
-  fetch(`/api/characters/${characterData.id}`, {
+  fetch(`/api/characters/${characterData.characterId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -95,7 +95,7 @@ function deleteCharacter(characterData) {
 
 // Function to update a character
 function updateCharacter(characterData) {
-  fetch(`/api/characters/${characterData.id}`, {
+  fetch(`/api/characters/${characterData.characterId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -173,7 +173,7 @@ function handleDelete(event) {
       const characterId = data;
 
       // Call your deleteCharacter function with the retrieved character ID
-      deleteCharacter({ id: characterId });
+      deleteCharacter({ characterId: characterId });
     })
     .catch((error) => {
       console.log("Error:", error);
