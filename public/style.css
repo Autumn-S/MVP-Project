@@ -133,11 +133,11 @@ img {
 .character {
   display: flex;
   flex-wrap: wrap;
-  width: 200;
-  height: 200;
+  width: 200px;
+  height: 200px;
   padding: 1rem;
   background-color: rgba(78, 37, 26, 0.599);
-  box-shadow: 5px 15px 20px 10px rgba(39, 38, 38, 0.75);
+  box-shadow: 5px 5px 10px 5px rgba(39, 38, 38, 0.75);
   border-radius: 5px;
 }
 
