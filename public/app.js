@@ -73,8 +73,8 @@ function loadAndDisplayCharacterData() {
 }
 
 // Function to delete a character
-function deleteCharacter() {
-  fetch("/api/characters/:id", {
+function deleteCharacter(characterData) {
+  fetch(`/api/characters/${characterData.id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -94,8 +94,8 @@ function deleteCharacter() {
 }
 
 // Function to update a character
-function updateCharacter() {
-  fetch("/api/characters/:id", {
+function updateCharacter(characterData) {
+  fetch(`/api/characters/${characterData.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -113,6 +113,48 @@ function updateCharacter() {
     .catch((error) => {
       console.log("Error:", error);
     });
+}
+
+// Function to handle the update button click
+function handleUpdate(event) {
+  const characterDiv = event.target.closest(".character");
+  const charName = characterDiv.querySelector("h2").textContent;
+  const charLevel = characterDiv
+    .querySelector("p:nth-child(2)")
+    .textContent.split(" ")[1];
+  const charClass = characterDiv
+    .querySelector("p:nth-child(3)")
+    .textContent.split(" ")[1];
+
+  const characterData = {
+    char_name: charName,
+    char_level: charLevel,
+    char_class: charClass,
+  };
+
+  // Call your updateCharacter function with the characterData
+  updateCharacter(characterData);
+}
+
+// Function to handle the delete button click
+function handleDelete(event) {
+  const characterDiv = event.target.closest(".character");
+  const charName = characterDiv.querySelector("h2").textContent;
+  const charLevel = characterDiv
+    .querySelector("p:nth-child(2)")
+    .textContent.split(" ")[1];
+  const charClass = characterDiv
+    .querySelector("p:nth-child(3)")
+    .textContent.split(" ")[1];
+
+  const characterData = {
+    char_name: charName,
+    char_level: charLevel,
+    char_class: charClass,
+  };
+
+  // Call your deleteCharacter function with the characterData
+  deleteCharacter(characterData);
 }
 
 // Function to handle form submission
@@ -140,6 +182,7 @@ document
     })
       .then((response) => {
         if (response.ok) {
+          alert("Character Created Successfully!");
           return response.json();
         } else {
           throw new Error("Error saving character.");
