@@ -119,27 +119,29 @@ img {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  text-align: left;
+  justify-content: center;
   color: #ded1cd;
   text-shadow: 1.5px 1.5px rgb(28, 28, 28);
   gap: 0.6rem;
   padding: 1rem;
   width: fit-content;
-  background-color: rgba(32, 14, 8, 0.599);
-  backdrop-filter: blur(1px);
-  border-radius: 5px;
-  box-shadow: 5px 15px 20px 10px rgba(0, 0, 0, 0.75);
 }
 
 .character {
-  width: 150px;
-  height: 150px;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 180px;
+  height: 240px;
+  padding: 1.1rem;
   background-color: rgba(78, 37, 26, 0.599);
-  box-shadow: 12px 17px 22px 0px rgba(33, 33, 33, 0.7);
+  box-shadow: 2px 2px 5px 0px rgba(9, 9, 9, 0.7);
   border-radius: 5px;
 }
 
 .character h2 {
   text-align: center;
+}
+
+.character button {
 }
