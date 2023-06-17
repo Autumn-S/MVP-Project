@@ -127,6 +127,7 @@ function handleUpdate(event) {
     .textContent.split(" ")[1];
 
   const characterData = {
+    id: charId,
     char_name: charName,
     char_level: charLevel,
     char_class: charClass,
@@ -139,6 +140,8 @@ function handleUpdate(event) {
 // Function to handle the delete button click
 function handleDelete(event) {
   const characterDiv = event.target.closest(".character");
+  const charId = characterDiv.dataset.characterId; // Assuming the character ID is stored as a data attribute in the character div
+
   const charName = characterDiv.querySelector("h2").textContent;
   const charLevel = characterDiv
     .querySelector("p:nth-child(2)")
@@ -148,6 +151,7 @@ function handleDelete(event) {
     .textContent.split(" ")[1];
 
   const characterData = {
+    id: charId,
     char_name: charName,
     char_level: charLevel,
     char_class: charClass,
