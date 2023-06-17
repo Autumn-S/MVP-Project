@@ -132,11 +132,11 @@ img {
 }
 
 .character {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   padding: 1rem;
   background-color: rgba(78, 37, 26, 0.599);
-  box-shadow: 5px 5px 10px 5px rgba(39, 38, 38, 0.75);
+  box-shadow: 12px 17px 22px 0px rgba(65, 65, 65, 0.7);
   border-radius: 5px;
 }
 
