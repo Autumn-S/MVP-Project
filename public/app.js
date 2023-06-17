@@ -5,7 +5,7 @@ function toggleVisibility(elementId) {
 }
 
 function updateCharacter(character) {
-  fetch(`/api/characters/${character.id}`, {
+  fetch("/api/characters/:id", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -25,8 +25,8 @@ function updateCharacter(character) {
     });
 }
 
-function deleteCharacter(character) {
-  fetch(`/api/characters/${character.id}`, {
+function deleteCharacter() {
+  fetch("/api/characters/:id", {
     method: "DELETE",
   })
     .then((response) => {
@@ -61,51 +61,46 @@ function loadAndDisplayCharacterData() {
     });
 }
 
-document.getElementById("createLink").addEventListener("click", function () {
-  toggleVisibility("formBox");
-});
+function loadAndDisplayCreatedCharacterData(character) {
+  const characterContainer = document.getElementById("characterContainer");
+  characterContainer.innerHTML = "";
 
-document.addEventListener("DOMContentLoaded", function () {
-  loadAndDisplayCharacterData(); // Fetch character data on page load
+  const characterElement = document.createElement("div");
+  characterElement.textContent = `Name: ${character.char_name} Level: ${character.char_level} Class: ${character.char_class}`;
+  characterContainer.appendChild(characterElement);
 
-  const updateLink = document.getElementById("updateLink");
-  updateLink.addEventListener("click", function () {
-    toggleVisibility("characterContainerBox");
-    loadAndDisplayCharacterData();
-  });
+  toggleVisibility("characterContainerBox");
+}
 
-  document
-    .getElementById("characterForm")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
+function handleCharacterFormSubmit(event) {
+  event.preventDefault();
 
-      const charName = document.getElementById("charName").value;
-      const charLevel = document.getElementById("charLevel").value;
-      const charClass = document.getElementById("charClass").value;
+  const charName = document.getElementById("charName").value;
+  const charLevel = document.getElementById("charLevel").value;
+  const charClass = document.getElementById("charClass").value;
 
-      const characterData = {
-        char_name: charName,
-        char_level: charLevel,
-        char_class: charClass,
-      };
+  const characterData = {
+    char_name: charName,
+    char_level: charLevel,
+    char_class: charClass,
+  };
 
-      fetch("/api/characters", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(characterData),
-      })
-        .then((response) => {
-          if (response.ok) {
-            alert("Character created successfully!");
-            loadAndDisplayCharacterData();
-          } else {
-            console.log("Error saving character.");
-          }
-        })
-        .catch((error) => {
-          console.log("Error:", error);
-        });
+  fetch("/api/characters", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(characterData),
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("Character created successfully!");
+        loadAndDisplayCreatedCharacterData(characterData);
+      } else {
+        console.log("Error saving character.");
+      }
+    })
+    .catch((error) => {
+      console.log("Error:", error);
     });
-});
+}
