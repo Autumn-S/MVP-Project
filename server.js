@@ -5,10 +5,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+const cors = require("cors");
 
 const sql = postgres(process.env.DATABASE_URL);
 
 app.use(express.static("public"));
+app.use(cors());
 app.use(express.json()); // Parse JSON request bodies
 
 app.get("/api/characters", async (_, res) => {
