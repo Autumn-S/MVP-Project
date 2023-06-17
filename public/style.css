@@ -117,13 +117,14 @@ img {
 #characterContainer {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   text-align: left;
   color: #ded1cd;
   text-shadow: 1.5px 1.5px rgb(28, 28, 28);
   gap: 0.6rem;
   padding: 1rem;
-  max-width: 1100px;
+  width: fit-content;
   background-color: rgba(32, 14, 8, 0.599);
   backdrop-filter: blur(1px);
   border-radius: 5px;
@@ -131,8 +132,6 @@ img {
 }
 
 .character {
-  display: flex;
-  flex-wrap: wrap;
   width: 200px;
   height: 200px;
   padding: 1rem;
