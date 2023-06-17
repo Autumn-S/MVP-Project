@@ -131,9 +131,10 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 180px;
+  width: 200px;
   height: 240px;
   padding: 1.1rem;
+  backdrop-filter: blur(1px);
   background-color: rgba(78, 37, 26, 0.599);
   box-shadow: 2px 2px 5px 0px rgba(9, 9, 9, 0.7);
   border-radius: 5px;
