@@ -22,8 +22,9 @@ body {
   align-items: center;
 }
 a.site-logo {
-  font-size: 26px;
-  font-weight: 800;
+  padding-left: 1%;
+  font-family: "Cinzel Decorative", cursive;
+  font-size: 32px;
   text-transform: uppercase;
   color: #c7d2e4;
   text-decoration: none;
