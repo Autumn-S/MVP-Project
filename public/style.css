@@ -5,45 +5,56 @@
 }
 
 body {
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url(https://cdnportal.mobalytics.gg/production/2023/05/9c01ad29-fractured-peaks-splash-1.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(https://images2.alphacoders.com/131/1315144.jpg);
   background-size: 100vw 100vh;
   background-position: center top;
 }
 
 /* navbar regular css start */
 .navbar-area {
-  background: rgba(33, 42, 52, 0.6);
-  border-bottom: 1px solid #000;
+  background-color: #d7d7d7;
+  background-image: linear-gradient(180deg, #dadada 0%, #353535 74%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
 }
+
 .site-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 a.site-logo {
   padding-left: 1%;
   font-family: "Cinzel Decorative", cursive;
   font-size: 32px;
+  font-weight: bold;
   text-transform: uppercase;
-  color: #c7d2e4;
   text-decoration: none;
 }
+
 .site-navbar ul {
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
 }
+
 .site-navbar ul li a {
-  color: #c7d2e4;
+  font-family: "Cinzel", serif;
   padding: 20px;
   display: block;
   text-decoration: none;
   text-transform: uppercase;
 }
-.site-navbar ul li a:hover {
-  background: rgba(255, 255, 255, 0.1);
+
+.site-navbar li a:hover {
+  background: rgba(32, 14, 8, 0.1);
+  font-weight: 900;
+  border-radius: 10px;
 }
 /* navbar regular css end */
 
@@ -71,6 +82,7 @@ img {
   box-shadow: inset;
   border: 1px solid rgb(9, 11, 18);
   border-radius: 5px;
+  filter: grayscale(75%);
 }
 
 #formFrame,
@@ -87,12 +99,13 @@ img {
   flex-direction: column;
   align-items: center;
   text-align: left;
-  color: #c7d2e4;
+  color: #ded1cd;
+  text-shadow: 1.5px 1.5px rgb(28, 28, 28);
   gap: 0.6rem;
   padding: 1rem;
   width: fit-content;
-  background-color: rgba(29, 39, 50, 0.8);
-  border: 2px solid black;
+  background-color: rgba(32, 14, 8, 0.599);
+  backdrop-filter: blur(1px);
   border-radius: 5px;
   box-shadow: 5px 15px 20px 10px rgba(0, 0, 0, 0.75);
 }
