@@ -120,8 +120,6 @@ img {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  color: #ded1cd;
-  text-shadow: 1.5px 1.5px rgb(28, 28, 28);
   gap: 0.6rem;
   padding: 1rem;
   width: fit-content;
@@ -143,6 +141,13 @@ img {
 .character h2 {
   font-family: "Cinzel", serif;
   text-align: center;
+  color: #c8c4c3;
+  text-shadow: 1.5px 1.5px rgb(28, 28, 28);
+}
+
+.character p {
+  color: #cfc6c3;
+  text-shadow: 1.5px 1.5px rgb(28, 28, 28);
 }
 
 .character button {
