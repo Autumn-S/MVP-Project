@@ -136,7 +136,7 @@ function handleUpdate(event) {
   updateCharacter(characterData);
 }
 
-//function to handle the delete event
+// Function to handle the delete button click
 function handleDelete(event) {
   const characterDiv = event.target.closest(".character");
   const charName = characterDiv.querySelector("h2").textContent;
@@ -170,7 +170,7 @@ function handleDelete(event) {
     })
     .then((data) => {
       // Extract the character ID from the response data
-      const characterId = data;
+      const characterId = data.characterId;
 
       // Call your deleteCharacter function with the retrieved character ID
       deleteCharacter({ characterId: characterId });
@@ -213,7 +213,7 @@ document
       })
       .then((data) => {
         const characterDiv = createCharacterDiv(data);
-        document.getElementById("characters").appendChild(characterDiv);
+        document.getElementById("characterContainer").appendChild(characterDiv);
         alert("Character created successfully!");
       })
       .catch((error) => {
