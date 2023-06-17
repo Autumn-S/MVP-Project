@@ -115,28 +115,6 @@ function updateCharacter(characterData) {
     });
 }
 
-// Function to handle the update button click
-function handleUpdate(event) {
-  const characterDiv = event.target.closest(".character");
-  const charName = characterDiv.querySelector("h2").textContent;
-  const charLevel = characterDiv
-    .querySelector("p:nth-child(2)")
-    .textContent.split(" ")[1];
-  const charClass = characterDiv
-    .querySelector("p:nth-child(3)")
-    .textContent.split(" ")[1];
-
-  const characterData = {
-    char_name: charName,
-    char_level: charLevel,
-    char_class: charClass,
-  };
-
-  // Call your updateCharacter function with the characterData
-  updateCharacter(characterData);
-}
-
-//function to handle the delete event
 function handleDelete(event) {
   const characterDiv = event.target.closest(".character");
   const charName = characterDiv.querySelector("h2").textContent;
@@ -163,14 +141,17 @@ function handleDelete(event) {
   })
     .then((response) => {
       if (response.ok) {
-        return response.json();
+        return response.text(); // Use response.text() instead of response.json()
       } else {
         throw new Error("Error finding character.");
       }
     })
     .then((data) => {
+      // Extract the character ID from the response data
+      const characterId = data;
+
       // Call your deleteCharacter function with the retrieved character ID
-      deleteCharacter(data.characterId);
+      deleteCharacter({ id: characterId });
     })
     .catch((error) => {
       console.log("Error:", error);
