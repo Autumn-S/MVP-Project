@@ -149,6 +149,7 @@ function handleDelete(event) {
     .textContent.split(" ")[1];
 
   const characterData = {
+    id: charId,
     char_name: charName,
     char_level: charLevel,
     char_class: charClass,
