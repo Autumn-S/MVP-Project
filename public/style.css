@@ -131,8 +131,14 @@ img {
 }
 
 .character {
+  width: 200;
+  height: 200;
   padding: 1rem;
-  background-color: rgba(15, 7, 5, 0.599);
-  box-shadow: 5px 15px 20px 10px rgba(0, 0, 0, 0.75);
+  background-color: rgba(78, 37, 26, 0.599);
+  box-shadow: 5px 15px 20px 10px rgba(39, 38, 38, 0.75);
   border-radius: 5px;
+}
+
+.character h2 {
+  text-align: center;
 }
