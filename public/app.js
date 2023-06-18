@@ -12,10 +12,21 @@ function createCharacterDiv(characterData) {
   const p2 = document.createElement("p");
   p2.textContent = `Class: ${characterData.char_class}`;
 
-  const updateButton = createButton("update", "Update", handleUpdate);
-  const deleteButton = createButton("delete", "Delete", handleDelete);
+  const updateButton = document.createElement("button");
+  updateButton.classList.add("update");
+  updateButton.textContent = "Update";
+  updateButton.addEventListener("click", handleUpdate);
 
-  characterDiv.append(h2, p1, p2, updateButton, deleteButton);
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete");
+  deleteButton.textContent = "Delete";
+  deleteButton.addEventListener("click", handleDelete);
+
+  characterDiv.appendChild(h2);
+  characterDiv.appendChild(p1);
+  characterDiv.appendChild(p2);
+  characterDiv.appendChild(updateButton);
+  characterDiv.appendChild(deleteButton);
 
   return characterDiv;
 }
@@ -28,24 +39,19 @@ function toggleVisibility(elementId) {
 }
 
 // Event listeners for toggle links
-document.getElementById("aboutLink").addEventListener("click", () => {
+const aboutLink = document.getElementById("aboutLink");
+aboutLink.addEventListener("click", function () {
   toggleVisibility("aboutContainerBox");
 });
 
-document.getElementById("createLink").addEventListener("click", () => {
+const createLink = document.getElementById("createLink");
+createLink.addEventListener("click", function () {
   toggleVisibility("formBox");
 });
 
-document.getElementById("displayLink").addEventListener("click", () => {
+const displayLink = document.getElementById("displayLink");
+displayLink.addEventListener("click", function () {
   toggleVisibility("characterContainerBox");
-});
-
-//Event listeners for off-click event
-document.addEventListener("click", function (event) {
-  const div = document.querySelector(".outerAboutContainer");
-  if (!div.contains(event.target) && event.target !== div) {
-    div.style.display = "none";
-  }
 });
 
 // Function to load and display character data
