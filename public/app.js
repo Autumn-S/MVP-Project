@@ -140,6 +140,10 @@ function handleUpdate(event) {
     char_class: charClass,
   };
 
+  // Unhide the formContainer div before the update form is displayed
+  const formContainer = document.getElementById("formContainer");
+  formContainer.classList.remove("hidden");
+
   // Send a request to the server to retrieve the character ID
   fetch(`/api/characters/find`, {
     method: "POST",
@@ -191,10 +195,6 @@ function handleUpdate(event) {
         
           <button type="submit">Update Character</button>
         `;
-
-      // Unhide the formContainer div before the update form is displayed
-      const formContainer = document.getElementById("formContainer");
-      formContainer.classList.remove("hidden");
 
       // Attach the submit event listener to the form
       form.addEventListener("submit", function (event) {
