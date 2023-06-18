@@ -85,21 +85,6 @@ document.addEventListener("click", function (event) {
   }
 });
 
-//Visibility of update form on off-click
-document.addEventListener("click", function (event) {
-  var formContainer = document.getElementById("formContainer");
-  var targetElement = event.target; // Clicked element
-
-  // Check if the clicked element is inside the formContainer
-  if (targetElement.closest("#formContainer")) {
-    // Clicked inside the formContainer, do nothing
-    return;
-  }
-
-  // Clicked outside the formContainer, hide it
-  formContainer.style.display = "none";
-});
-
 // Function to load and display character data
 function loadAndDisplayCharacterData() {
   fetch("/api/characters")
