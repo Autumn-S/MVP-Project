@@ -218,8 +218,8 @@ function handleUpdate(event) {
           .then((response) => response.json())
           .then((data) => {
             // Handle the server response or perform any necessary actions
-            alert(`${charName} has been updated!`);
             console.log("Server response:", data);
+            alert(`Character has been updated!`);
           })
           .catch((error) => {
             // Handle any errors that occurred during the server request
