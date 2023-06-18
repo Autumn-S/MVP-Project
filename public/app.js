@@ -83,13 +83,6 @@ document.addEventListener("click", function (event) {
   ) {
     toggleVisibility("characterContainerBox");
   }
-
-  if (
-    !formContainer.contains(event.target) &&
-    formContainer.style.display === "block"
-  ) {
-    toggleVisibility("formContainer");
-  }
 });
 
 // Function to load and display character data
