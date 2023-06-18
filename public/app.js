@@ -126,8 +126,13 @@ function deleteCharacter(characterData) {
 
 function handleUpdate(event) {
   const formContainer = document.getElementById("formContainer");
+  const characterContainerBox = document.getElementById(
+    "characterContainerBox"
+  );
+
   formContainer.style.display =
     formContainer.style.display === "none" ? "block" : "none";
+  characterContainerBox.style.display = "none";
   const characterDiv = event.target.closest(".character");
   const charName = characterDiv.querySelector("h2").textContent;
   const charLevel = characterDiv
