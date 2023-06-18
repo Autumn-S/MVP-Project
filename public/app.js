@@ -142,7 +142,7 @@ function handleUpdate(event) {
 
   // Unhide the formContainer div before the update form is displayed
   const formContainer = document.getElementById("formContainer");
-  formContainer.classList.remove("hidden");
+  formContainer.style.display = "block";
 
   // Send a request to the server to retrieve the character ID
   fetch(`/api/characters/find`, {
