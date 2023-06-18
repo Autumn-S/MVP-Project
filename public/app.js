@@ -239,8 +239,13 @@ updateButtons.forEach((button) => {
   button.addEventListener("click", function () {
     handleUpdate();
     const formContainer = document.getElementById("formContainer");
-    formContainer.style.display =
-      formContainer.style.display === "none" ? "block" : "none";
+    console.log("formContainer:", formContainer); // Debugging statement
+    if (formContainer) {
+      formContainer.style.display =
+        formContainer.style.display === "none" ? "block" : "none";
+    } else {
+      console.error("formContainer element not found!"); // Error handling
+    }
   });
 });
 
