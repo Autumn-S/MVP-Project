@@ -93,29 +93,6 @@ function deleteCharacter(characterData) {
     });
 }
 
-// Function to update a character
-function updateCharacter(characterData) {
-  fetch(`/api/characters/${characterData.characterId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(characterData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        alert("Character updated successfully!");
-        console.log(characterData);
-      } else {
-        console.log("Error updating character.");
-      }
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
-}
-
-// Function to handle the update button click
 function handleUpdate(event) {
   const characterDiv = event.target.closest(".character");
   const charName = characterDiv.querySelector("h2").textContent;
@@ -126,15 +103,48 @@ function handleUpdate(event) {
     .querySelector("p:nth-child(3)")
     .textContent.split(" ")[1];
 
-  const characterData = {
-    char_name: charName,
-    char_level: charLevel,
-    char_class: charClass,
-  };
+  // Create the form and populate it with the character data
+  const form = document.createElement("form");
+  form.id = "updateForm";
+  form.innerHTML = `
+      <label for="charName">Name:</label>
+      <input type="text" id="charName" name="charName" value="${charName}" required><br>
+    
+      <label for="charLevel">Level:</label>
+      <input type="number" id="charLevel" name="charLevel" value="${charLevel}" required><br>
+    
+      <label for="charClass">Class:</label>
+      <input type="text" id="charClass" name="charClass" value="${charClass}" required><br>
+    
+      <button type="submit">Update Character</button>
+    `;
 
-  // Call your updateCharacter function with the characterData
-  updateCharacter(characterData);
+  // Handle form submission
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const updatedCharacterData = {
+      characterId: characterData.characterId,
+      char_name: form.charName.value,
+      char_level: form.charLevel.value,
+      char_class: form.charClass.value,
+    };
+
+    // Call the updateCharacter function with the updated character data
+    updateCharacter(updatedCharacterData);
+  });
+
+  // Append the form to the document
+  const formContainer = document.getElementById("formContainer");
+  formContainer.innerHTML = ""; // Clear previous form, if any
+  formContainer.appendChild(form);
 }
+
+// Attach click event handlers to the update buttons
+const updateButtons = document.querySelectorAll(".updateButton");
+updateButtons.forEach((button) => {
+  button.addEventListener("click", handleUpdate);
+});
 
 // Function to handle the delete button click
 function handleDelete(event) {
@@ -205,7 +215,7 @@ document
     })
       .then((response) => {
         if (response.ok) {
-          alert("Character Created Successfully!");
+          alert("Character created successfully!");
           return response.json();
         } else {
           throw new Error("Error saving character.");
@@ -214,7 +224,6 @@ document
       .then((data) => {
         const characterDiv = createCharacterDiv(data);
         document.getElementById("characterContainer").appendChild(characterDiv);
-        alert("Character created successfully!");
       })
       .catch((error) => {
         console.log("Error:", error);
