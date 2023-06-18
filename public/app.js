@@ -108,14 +108,22 @@ function handleUpdate(event) {
   form.id = "updateForm";
   form.innerHTML = `
       <label for="charName">Name:</label>
-      <input type="text" id="charName" name="charName" value="${charName}" required><br>
+      <input type="text" id="charName" name="charName" value="${charName}"><br>
     
       <label for="charLevel">Level:</label>
-      <input type="number" id="charLevel" name="charLevel" value="${charLevel}" required><br>
+      <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
     
       <label for="charClass">Class:</label>
-      <input type="text" id="charClass" name="charClass" value="${charClass}" required><br>
-    
+      <select id="charClass" name="charClass" value="${charClass}">
+      <option value="">-- Select Class --</option>
+              <option value="Druid">Druid</option>
+              <option value="Sorceress">Sorceress</option>
+              <option value="Necromancer">Necromancer</option>
+              <option value="Rogue">Rogue</option>
+              <option value="Barbarian">Barbarian</option>
+            </select>
+      <br>
+
       <button type="submit">Update Character</button>
     `;
 
@@ -184,6 +192,7 @@ function handleDelete(event) {
 
       // Call your deleteCharacter function with the retrieved character ID
       deleteCharacter({ characterId: characterId });
+      alert("Character Successfully Deleted!");
     })
     .catch((error) => {
       console.log("Error:", error);
