@@ -140,10 +140,6 @@ function handleUpdate(event) {
     char_class: charClass,
   };
 
-  // Unhide the formContainer div before the update form is displayed
-  const formContainer = document.getElementById("formContainer");
-  formContainer.style.display = "block";
-
   // Send a request to the server to retrieve the character ID
   fetch(`/api/characters/find`, {
     method: "POST",
@@ -228,6 +224,7 @@ function handleUpdate(event) {
       });
 
       // Append the form to the document
+      const formContainer = document.getElementById("formContainer");
       formContainer.innerHTML = ""; // Clear previous form, if any
       formContainer.appendChild(form);
     })
@@ -239,7 +236,12 @@ function handleUpdate(event) {
 // Attach click event handlers to the update buttons
 const updateButtons = document.querySelectorAll(".updateButton");
 updateButtons.forEach((button) => {
-  button.addEventListener("click", handleUpdate);
+  button.addEventListener("click", function () {
+    handleUpdate();
+    const formContainer = document.getElementById("formContainer");
+    formContainer.style.display =
+      formContainer.style.display === "none" ? "block" : "none";
+  });
 });
 
 // Function to handle the delete button click
