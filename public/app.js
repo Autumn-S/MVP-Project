@@ -41,17 +41,26 @@ function toggleVisibility(elementId) {
 // Event listeners for toggle links
 const aboutLink = document.getElementById("aboutLink");
 aboutLink.addEventListener("click", function () {
-  toggleVisibility("aboutContainerBox");
+  // Toggle visibility asynchronously after a short delay
+  setTimeout(() => {
+    toggleVisibility("aboutContainerBox");
+  }, 0);
 });
 
 const createLink = document.getElementById("createLink");
 createLink.addEventListener("click", function () {
-  toggleVisibility("formBox");
+  // Toggle visibility asynchronously after a short delay
+  setTimeout(() => {
+    toggleVisibility("formBox");
+  }, 0);
 });
 
 const displayLink = document.getElementById("displayLink");
 displayLink.addEventListener("click", function () {
-  toggleVisibility("characterContainerBox");
+  // Toggle visibility asynchronously after a short delay
+  setTimeout(() => {
+    toggleVisibility("characterContainerBox");
+  }, 0);
 });
 
 // Click event listener to hide div when clicked outside
@@ -97,6 +106,9 @@ function loadAndDisplayCharacterData() {
         const characterDiv = createCharacterDiv(character);
         characterContainer.appendChild(characterDiv);
       });
+      setTimeout(() => {
+        toggleVisibility("characterContainerBox");
+      }, 0);
     })
     .catch((error) => {
       console.log("Error:", error);
@@ -171,14 +183,14 @@ function handleUpdate(event) {
       const updateForm = document.createElement("form");
       updateForm.id = "updateForm";
       updateForm.innerHTML = `
-            <label for="charName">Name:</label>
-            <input type="text" id="charName" name="charName" value="${charName}"><br>
-            
-            <label for="charLevel">Level:</label>
-            <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-            
-            <label for="charClass">Class:</label>
-            <select id="charClass" name="charClass">
+          <label for="charName">Name:</label>
+          <input type="text" id="charName" name="charName" value="${charName}"><br>
+          
+          <label for="charLevel">Level:</label>
+          <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+          
+          <label for="charClass">Class:</label>
+          <select id="charClass" name="charClass">
             <option value="Druid" ${
               charClass === "Druid" ? "selected" : ""
             }>Druid</option>
@@ -194,11 +206,10 @@ function handleUpdate(event) {
             <option value="Barbarian" ${
               charClass === "Barbarian" ? "selected" : ""
             }>Barbarian</option>
-            </select>
-            <br>
+          </select><br>
           
-            <button type="submit">Update Character</button>
-          `;
+          <button type="submit">Update Character</button>
+        `;
 
       // Attach the submit event listener to the form
       updateForm.addEventListener("submit", function (event) {
@@ -234,7 +245,12 @@ function handleUpdate(event) {
 
       // Append the form to the document
       formContainer.innerHTML = ""; // Clear previous form, if any
-      formContainer.appendChild(updateForm);
+
+      // Toggle visibility and append the form asynchronously after a short delay
+      setTimeout(() => {
+        toggleVisibility("formContainer");
+        formContainer.appendChild(updateForm);
+      }, 0);
     })
     .catch((error) => {
       console.log("Error:", error);
@@ -245,7 +261,9 @@ function handleUpdate(event) {
 const updateButtons = document.querySelectorAll(".updateButton");
 updateButtons.forEach((button) => {
   button.addEventListener("click", function () {
-    handleUpdate();
+    setTimeout(() => {
+      handleUpdate();
+    }, 0); // Delay of 0 milliseconds
   });
 });
 
