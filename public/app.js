@@ -107,27 +107,27 @@ function handleUpdate(event) {
   const form = document.createElement("form");
   form.id = "updateForm";
   form.innerHTML = `
-      <label for="charName">Name:</label>
-      <input type="text" id="charName" name="charName" value="${charName}"><br>
-    
-      <label for="charLevel">Level:</label>
-      <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-    
-      <label for="charClass">Class:</label>
-      <select id="charClass" name="charClass" value="${charClass}">
-      <option value="">-- Select Class --</option>
-              <option value="Druid">Druid</option>
-              <option value="Sorceress">Sorceress</option>
-              <option value="Necromancer">Necromancer</option>
-              <option value="Rogue">Rogue</option>
-              <option value="Barbarian">Barbarian</option>
-            </select>
-      <br>
+        <label for="charName">Name:</label>
+        <input type="text" id="charName" name="charName" value="${charName}"><br>
+      
+        <label for="charLevel">Level:</label>
+        <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+      
+        <label for="charClass">Class:</label>
+        <select id="charClass" name="charClass" value="${charClass}">
+          <option value="">-- Select Class --</option>
+          <option value="Druid">Druid</option>
+          <option value="Sorceress">Sorceress</option>
+          <option value="Necromancer">Necromancer</option>
+          <option value="Rogue">Rogue</option>
+          <option value="Barbarian">Barbarian</option>
+        </select>
+        <br>
+  
+        <button type="submit">Update Character</button>
+      `;
 
-      <button type="submit">Update Character</button>
-    `;
-
-  // Handle form submission
+  // Attach the submit event listener to the form
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -138,8 +138,23 @@ function handleUpdate(event) {
       char_class: form.charClass.value,
     };
 
-    // Call the updateCharacter function with the updated character data
-    updateCharacter(updatedCharacterData);
+    // Send the updated character data to the server
+    fetch(`/api/characters/:id${updatedCharacterData.characterId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedCharacterData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the server response or perform any necessary actions
+        console.log("Server response:", data);
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the server request
+        console.error("Error:", error);
+      });
   });
 
   // Append the form to the document
