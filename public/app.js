@@ -12,21 +12,10 @@ function createCharacterDiv(characterData) {
   const p2 = document.createElement("p");
   p2.textContent = `Class: ${characterData.char_class}`;
 
-  const updateButton = document.createElement("button");
-  updateButton.classList.add("update");
-  updateButton.textContent = "Update";
-  updateButton.addEventListener("click", handleUpdate);
+  const updateButton = createButton("update", "Update", handleUpdate);
+  const deleteButton = createButton("delete", "Delete", handleDelete);
 
-  const deleteButton = document.createElement("button");
-  deleteButton.classList.add("delete");
-  deleteButton.textContent = "Delete";
-  deleteButton.addEventListener("click", handleDelete);
-
-  characterDiv.appendChild(h2);
-  characterDiv.appendChild(p1);
-  characterDiv.appendChild(p2);
-  characterDiv.appendChild(updateButton);
-  characterDiv.appendChild(deleteButton);
+  characterDiv.append(h2, p1, p2, updateButton, deleteButton);
 
   return characterDiv;
 }
@@ -39,19 +28,24 @@ function toggleVisibility(elementId) {
 }
 
 // Event listeners for toggle links
-const aboutLink = document.getElementById("aboutLink");
-aboutLink.addEventListener("click", function () {
+document.getElementById("aboutLink").addEventListener("click", () => {
   toggleVisibility("aboutContainerBox");
 });
 
-const createLink = document.getElementById("createLink");
-createLink.addEventListener("click", function () {
+document.getElementById("createLink").addEventListener("click", () => {
   toggleVisibility("formBox");
 });
 
-const displayLink = document.getElementById("displayLink");
-displayLink.addEventListener("click", function () {
+document.getElementById("displayLink").addEventListener("click", () => {
   toggleVisibility("characterContainerBox");
+});
+
+//Event listeners for off-click event
+document.addEventListener("click", function (event) {
+  const div = document.querySelector(".outerAboutContainer");
+  if (!div.contains(event.target) && event.target !== div) {
+    div.style.display = "none";
+  }
 });
 
 // Function to load and display character data
@@ -207,20 +201,6 @@ const updateButtons = document.querySelectorAll(".updateButton");
 updateButtons.forEach((button) => {
   button.addEventListener("click", handleUpdate);
 });
-
-// Get the form container element
-const formContainer = document.getElementById("formContainer");
-
-// Attach click event handler to the update button within the character div
-const characterDiv = document.querySelector(".character");
-const updateButton = characterDiv.querySelector(".updateButton");
-updateButton.addEventListener("click", showFormContainer);
-
-// Event handler for update button click
-function showFormContainer() {
-  // Show the form container
-  formContainer.style.display = "block";
-}
 
 // Function to handle the delete button click
 function handleDelete(event) {
