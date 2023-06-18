@@ -213,7 +213,7 @@ const formContainer = document.getElementById("formContainer");
 
 // Attach click event handler to the update button within the character div
 const characterDiv = document.querySelector(".character");
-const updateButton = characterDiv.querySelector(".updateButton");
+const updateButton = characterDiv.querySelector(".update");
 updateButton.addEventListener("click", showFormContainer);
 
 // Event handler for update button click
