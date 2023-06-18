@@ -54,6 +54,37 @@ displayLink.addEventListener("click", function () {
   toggleVisibility("characterContainerBox");
 });
 
+// Click event listener to hide div when clicked outside
+document.addEventListener("click", function (event) {
+  const aboutContainer = document.getElementById("aboutContainerBox");
+  const formBox = document.getElementById("formBox");
+  const characterContainer = document.getElementById("characterContainerBox");
+
+  if (
+    !aboutContainer.contains(event.target) &&
+    event.target !== aboutLink &&
+    aboutContainer.style.display === "block"
+  ) {
+    toggleVisibility("aboutContainerBox");
+  }
+
+  if (
+    !formBox.contains(event.target) &&
+    event.target !== createLink &&
+    formBox.style.display === "block"
+  ) {
+    toggleVisibility("formBox");
+  }
+
+  if (
+    !characterContainer.contains(event.target) &&
+    event.target !== displayLink &&
+    characterContainer.style.display === "block"
+  ) {
+    toggleVisibility("characterContainerBox");
+  }
+});
+
 // Function to load and display character data
 function loadAndDisplayCharacterData() {
   fetch("/api/characters")
@@ -161,6 +192,10 @@ function handleUpdate(event) {
           <button type="submit">Update Character</button>
         `;
 
+      // Unhide the formContainer div before the update form is displayed
+      const formContainer = document.getElementById("formContainer");
+      formContainer.classList.remove("hidden");
+
       // Attach the submit event listener to the form
       form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -193,7 +228,6 @@ function handleUpdate(event) {
       });
 
       // Append the form to the document
-      const formContainer = document.getElementById("formContainer");
       formContainer.innerHTML = ""; // Clear previous form, if any
       formContainer.appendChild(form);
     })
