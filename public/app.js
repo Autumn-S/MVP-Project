@@ -125,6 +125,9 @@ function deleteCharacter(characterData) {
 }
 
 function handleUpdate(event) {
+  const formContainer = document.getElementById("formContainer");
+  formContainer.style.display =
+    formContainer.style.display === "none" ? "block" : "none";
   const characterDiv = event.target.closest(".character");
   const charName = characterDiv.querySelector("h2").textContent;
   const charLevel = characterDiv
@@ -160,47 +163,47 @@ function handleUpdate(event) {
       const characterId = data.characterId;
 
       // Create the form and populate it with the character data
-      const form = document.createElement("form");
-      form.id = "updateForm";
-      form.innerHTML = `
-          <label for="charName">Name:</label>
-          <input type="text" id="charName" name="charName" value="${charName}"><br>
+      const updateForm = document.createElement("form");
+      updateForm.id = "updateForm";
+      updateForm.innerHTML = `
+            <label for="charName">Name:</label>
+            <input type="text" id="charName" name="charName" value="${charName}"><br>
+            
+            <label for="charLevel">Level:</label>
+            <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+            
+            <label for="charClass">Class:</label>
+            <select id="charClass" name="charClass">
+            <option value="Druid" ${
+              charClass === "Druid" ? "selected" : ""
+            }>Druid</option>
+            <option value="Sorceress" ${
+              charClass === "Sorceress" ? "selected" : ""
+            }>Sorceress</option>
+            <option value="Necromancer" ${
+              charClass === "Necromancer" ? "selected" : ""
+            }>Necromancer</option>
+            <option value="Rogue" ${
+              charClass === "Rogue" ? "selected" : ""
+            }>Rogue</option>
+            <option value="Barbarian" ${
+              charClass === "Barbarian" ? "selected" : ""
+            }>Barbarian</option>
+            </select>
+            <br>
           
-          <label for="charLevel">Level:</label>
-          <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-          
-          <label for="charClass">Class:</label>
-          <select id="charClass" name="charClass">
-          <option value="Druid" ${
-            charClass === "Druid" ? "selected" : ""
-          }>Druid</option>
-          <option value="Sorceress" ${
-            charClass === "Sorceress" ? "selected" : ""
-          }>Sorceress</option>
-          <option value="Necromancer" ${
-            charClass === "Necromancer" ? "selected" : ""
-          }>Necromancer</option>
-          <option value="Rogue" ${
-            charClass === "Rogue" ? "selected" : ""
-          }>Rogue</option>
-          <option value="Barbarian" ${
-            charClass === "Barbarian" ? "selected" : ""
-          }>Barbarian</option>
-          </select>
-          <br>
-        
-          <button type="submit">Update Character</button>
-        `;
+            <button type="submit">Update Character</button>
+          `;
 
       // Attach the submit event listener to the form
-      form.addEventListener("submit", function (event) {
+      updateForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
         const updatedCharacterData = {
           characterId: characterId, // Use the retrieved character ID
-          char_name: form.charName.value,
-          char_level: form.charLevel.value,
-          char_class: form.charClass.value,
+          char_name: updateForm.charName.value,
+          char_level: updateForm.charLevel.value,
+          char_class: updateForm.charClass.value,
         };
 
         // Send the updated character data to the server
@@ -224,9 +227,8 @@ function handleUpdate(event) {
       });
 
       // Append the form to the document
-      const formContainer = document.getElementById("formContainer");
       formContainer.innerHTML = ""; // Clear previous form, if any
-      formContainer.appendChild(form);
+      formContainer.appendChild(updateForm);
     })
     .catch((error) => {
       console.log("Error:", error);
@@ -238,14 +240,6 @@ const updateButtons = document.querySelectorAll(".updateButton");
 updateButtons.forEach((button) => {
   button.addEventListener("click", function () {
     handleUpdate();
-    const formContainer = document.getElementById("formContainer");
-    console.log("formContainer:", formContainer); // Debugging statement
-    if (formContainer) {
-      formContainer.style.display =
-        formContainer.style.display === "none" ? "block" : "none";
-    } else {
-      console.error("formContainer element not found!"); // Error handling
-    }
   });
 });
 
