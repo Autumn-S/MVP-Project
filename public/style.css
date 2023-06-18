@@ -60,8 +60,7 @@ a.site-logo {
 
 #formBox,
 #characterContainerBox,
-#aboutContainerBox,
-#formContainer {
+#aboutContainerBox {
   display: none;
   position: absolute;
   top: 50%;
