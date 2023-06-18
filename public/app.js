@@ -139,8 +139,8 @@ function handleUpdate(event) {
           <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
           
           <label for="charClass">Class:</label>
-          <select id="charClass" name="charClass" value="${charClass}">
-            <option value="">-- Select Class --</option>
+          <select id="charClass" name="charClass">
+            <option value="${charClass}">${charClass}</option>
             <option value="Druid">Druid</option>
             <option value="Sorceress">Sorceress</option>
             <option value="Necromancer">Necromancer</option>
