@@ -140,12 +140,21 @@ function handleUpdate(event) {
           
           <label for="charClass">Class:</label>
           <select id="charClass" name="charClass">
-            <option value="${charClass}">${charClass}</option>
-            <option value="Druid">Druid</option>
-            <option value="Sorceress">Sorceress</option>
-            <option value="Necromancer">Necromancer</option>
-            <option value="Rogue">Rogue</option>
-            <option value="Barbarian">Barbarian</option>
+          <option value="Druid" ${
+            charClass === "Druid" ? "selected" : ""
+          }>Druid</option>
+          <option value="Sorceress" ${
+            charClass === "Sorceress" ? "selected" : ""
+          }>Sorceress</option>
+          <option value="Necromancer" ${
+            charClass === "Necromancer" ? "selected" : ""
+          }>Necromancer</option>
+          <option value="Rogue" ${
+            charClass === "Rogue" ? "selected" : ""
+          }>Rogue</option>
+          <option value="Barbarian" ${
+            charClass === "Barbarian" ? "selected" : ""
+          }>Barbarian</option>
           </select>
           <br>
         
