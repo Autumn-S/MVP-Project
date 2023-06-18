@@ -68,6 +68,14 @@ a.site-logo {
   transform: translate(-50%, -50%);
 }
 
+#formContainer {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  display: none;
+}
+
 .centered {
   display: block;
   position: absolute;
@@ -98,7 +106,8 @@ img {
 }
 
 #characterForm,
-#aboutContainer {
+#aboutContainer,
+#updateForm {
   display: flex;
   flex-direction: column;
   align-items: center;

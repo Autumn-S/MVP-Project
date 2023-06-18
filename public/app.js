@@ -208,6 +208,21 @@ updateButtons.forEach((button) => {
   button.addEventListener("click", handleUpdate);
 });
 
+// Get the form container element
+const formContainer = document.getElementById("formContainer");
+
+// Attach click event handler to the update button within the character div
+const characterUpdateButton = document.querySelector(
+  ".character .updateButton"
+);
+characterUpdateButton.addEventListener("click", showFormContainer);
+
+// Event handler for update button click
+function showFormContainer() {
+  // Show the form container
+  formContainer.style.display = "block";
+}
+
 // Function to handle the delete button click
 function handleDelete(event) {
   const characterDiv = event.target.closest(".character");
