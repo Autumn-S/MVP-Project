@@ -212,10 +212,9 @@ updateButtons.forEach((button) => {
 const formContainer = document.getElementById("formContainer");
 
 // Attach click event handler to the update button within the character div
-const characterUpdateButton = document.querySelector(
-  ".character .updateButton"
-);
-characterUpdateButton.addEventListener("click", showFormContainer);
+const characterDiv = document.querySelector(".character");
+const updateButton = characterDiv.querySelector(".updateButton");
+updateButton.addEventListener("click", showFormContainer);
 
 // Event handler for update button click
 function showFormContainer() {
