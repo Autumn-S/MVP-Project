@@ -97,12 +97,9 @@ const closeButtonList = document.querySelectorAll("button.close");
 
 closeButtonList.forEach(function (button) {
   button.addEventListener("click", function () {
-    const closestCharacterDiv = button.closest(".character");
     aboutContainerBox.style.display = "none";
     formBox.style.display = "none";
-    characterDivList.forEach(function (characterDiv) {
-      characterDiv.style.display = "none";
-    });
+    characterDivList.style.display = "none";
   });
 });
 
