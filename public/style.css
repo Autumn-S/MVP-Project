@@ -72,8 +72,8 @@ a.site-logo {
 #formContainer {
   display: none;
   position: absolute;
-  top: 40%;
-  left: 30%;
+  top: 35%;
+  left: 20%;
   transform: translate(-50%, -50%);
 }
 
