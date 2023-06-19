@@ -186,6 +186,8 @@ function handleUpdate(event) {
       const updateForm = document.createElement("form");
       updateForm.id = "updateForm";
       updateForm.innerHTML = `
+            <button class="close"></button>
+            <br>
             <label for="charName">Name:</label>
             <input type="text" id="charName" name="charName" value="${charName}"><br>
             
