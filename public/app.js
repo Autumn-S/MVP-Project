@@ -92,7 +92,7 @@ document.addEventListener("click", function (event) {
 // Functionality for the close buttons
 const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
-const formContainer = document.getElementById("formContainer");
+const updateForm = document.getElementById("updateForm");
 const characterBox = document.querySelectorAll("div.character");
 const closeButtonList = document.querySelectorAll("button.close");
 
@@ -100,8 +100,8 @@ closeButtonList.forEach((button) => {
   button.addEventListener("click", () => {
     aboutContainerBox.style.display = "none";
     formBox.style.display = "none";
-    formContainer.style.display = "none";
-    characterBox.stlye.display = "none";
+    updateForm.style.display = "none";
+    characterBox.style.display = "none";
   });
 });
 
