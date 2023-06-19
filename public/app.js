@@ -22,11 +22,15 @@ function createCharacterDiv(characterData) {
   deleteButton.textContent = "Delete";
   deleteButton.addEventListener("click", handleDelete);
 
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("close");
+
   characterDiv.appendChild(h2);
   characterDiv.appendChild(p1);
   characterDiv.appendChild(p2);
   characterDiv.appendChild(updateButton);
   characterDiv.appendChild(deleteButton);
+  characterDiv.appendChild(closeButton);
 
   return characterDiv;
 }
@@ -83,6 +87,22 @@ document.addEventListener("click", function (event) {
   ) {
     toggleVisibility("characterContainerBox");
   }
+});
+
+// Functionality for the close buttons
+const aboutContainerBox = document.getElementById("aboutContainerBox");
+const formBox = document.getElementById("formBox");
+const formContainer = document.getElementById("formContainer");
+const characterBox = document.querySelectorAll(".character");
+const closeButtonList = document.querySelectorAll("button.close");
+
+closeButtonList.forEach((button) => {
+  button.addEventListener("click", () => {
+    aboutContainerBox.style.display = "none";
+    formBox.style.display = "none";
+    formContainer.style.display = "none";
+    characterBox.stlye.display = "none";
+  });
 });
 
 // Function to load and display character data

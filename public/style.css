@@ -161,10 +161,11 @@ img {
 button.close {
   z-index: 1;
   position: absolute;
-  right: 20px;
-  top: 2px;
-  width: 10px; /* Adjusted width */
-  height: 10px; /* Adjusted height */
+  padding: 1px;
+  right: 1px;
+  top: 1px;
+  width: 32px; /* Adjusted width */
+  height: 32px; /* Adjusted height */
   opacity: 0.3;
   border: none;
   background-color: transparent;
