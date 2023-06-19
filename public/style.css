@@ -87,7 +87,6 @@ a.site-logo {
 img {
   height: 100%;
   width: 100%;
-  box-shadow: inset;
   border: 1px solid rgb(9, 11, 18);
   border-radius: 5px;
   filter: grayscale(75%);
@@ -117,10 +116,10 @@ img {
   gap: 0.6rem;
   padding: 1rem;
   width: fit-content;
-  background-color: rgba(32, 14, 8, 0.599);
+  background-color: rgba(23, 9, 5, 0.703);
   backdrop-filter: blur(1px);
   border-radius: 5px;
-  box-shadow: 5px 15px 20px 10px rgba(0, 0, 0, 0.75);
+  box-shadow: 5px 15px 20px 10px rgba(0, 0, 0, 0.803);
 }
 
 #characterContainer {
@@ -157,4 +156,38 @@ img {
 .character p {
   color: #cfc6c3;
   text-shadow: 1.5px 1.5px rgb(28, 28, 28);
+}
+
+button.close {
+  z-index: 1;
+  position: absolute;
+  right: 20px;
+  top: 2px;
+  width: 10px; /* Adjusted width */
+  height: 10px; /* Adjusted height */
+  opacity: 0.3;
+  border: none;
+  background-color: transparent;
+}
+
+button.close:hover {
+  opacity: 1;
+}
+
+button.close:before,
+button.close:after {
+  position: absolute;
+  left: 7px; /* Adjusted left position */
+  content: " ";
+  height: 22px; /* Adjusted height */
+  width: 1px; /* Adjusted width */
+  background-color: #c8c4c3;
+}
+
+button.close:before {
+  transform: rotate(45deg);
+}
+
+button.close:after {
+  transform: rotate(-45deg);
 }

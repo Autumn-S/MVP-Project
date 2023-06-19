@@ -1,5 +1,8 @@
 // Function to create a character div
 function createCharacterDiv(characterData) {
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("close");
+
   const characterDiv = document.createElement("div");
   characterDiv.classList.add("character");
 
@@ -22,6 +25,7 @@ function createCharacterDiv(characterData) {
   deleteButton.textContent = "Delete";
   deleteButton.addEventListener("click", handleDelete);
 
+  characterDiv.appendChild(closeButton);
   characterDiv.appendChild(h2);
   characterDiv.appendChild(p1);
   characterDiv.appendChild(p2);
@@ -83,6 +87,23 @@ document.addEventListener("click", function (event) {
   ) {
     toggleVisibility("characterContainerBox");
   }
+});
+
+//Functionality for the close buttons
+const aboutContainerBox = document.getElementById("aboutContainerBox");
+const formBox = document.getElementById("formBox");
+const characterDivList = document.querySelectorAll(".character");
+const closeButtonList = document.querySelectorAll("button.close");
+
+closeButtonList.forEach(function (button) {
+  button.addEventListener("click", function () {
+    const closestCharacterDiv = button.closest(".character");
+    aboutContainerBox.style.display = "none";
+    formBox.style.display = "none";
+    characterDivList.forEach(function (characterDiv) {
+      characterDiv.style.display = "none";
+    });
+  });
 });
 
 // Function to load and display character data
@@ -166,6 +187,7 @@ function handleUpdate(event) {
       const updateForm = document.createElement("form");
       updateForm.id = "updateForm";
       updateForm.innerHTML = `
+       <button class="close"></button>
             <label for="charName">Name:</label>
             <input type="text" id="charName" name="charName" value="${charName}"><br>
             
