@@ -148,10 +148,10 @@ function deleteCharacter(characterId) {
     });
 }
 
-// Function to handle the update button click
-function handleUpdate(event) {
-  const formContainer = document.getElementById("formContainer");
+// Function to handle the delete button click
+function handleDelete(event) {
   const characterDiv = event.target.closest(".character");
+  const characterId = characterDiv.dataset.characterId; // Assuming the character ID is stored as a data attribute in the characterDiv
   const charName = characterDiv.querySelector("h2").textContent;
   const charLevel = characterDiv
     .querySelector("p:nth-child(2)")
@@ -179,7 +179,50 @@ function handleUpdate(event) {
     })
     .then((data) => {
       const characterId = data.characterId;
-      const updateForm = createUpdateForm(charName, charLevel, charClass);
+      deleteCharacter(characterId);
+      alert("Character Successfully Deleted!");
+    })
+    .catch((error) => {
+      console.log("Error:", error);
+    });
+}
+
+function handleUpdate(event) {
+  const formContainer = document.getElementById("formContainer");
+  const characterDiv = event.target.closest(".character");
+  const characterId = characterDiv.dataset.characterId; // Assuming the character ID is stored as a data attribute in the characterDiv
+  const charName = characterDiv.querySelector("h2").textContent;
+  const charLevel = characterDiv
+    .querySelector("p:nth-child(2)")
+    .textContent.split(" ")[1];
+  const charClass = characterDiv
+    .querySelector("p:nth-child(3)")
+    .textContent.split(" ")[1];
+  const characterData = {
+    char_name: charName,
+    char_level: charLevel,
+    char_class: charClass,
+  };
+
+  fetch(`/api/characters/find`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(characterData),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Error finding character.");
+      }
+    })
+    .then((data) => {
+      const updateForm = createUpdateForm(
+        characterId,
+        charName,
+        charLevel,
+        charClass
+      );
 
       updateForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -255,44 +298,6 @@ const updateButtons = document.querySelectorAll(".updateButton");
 updateButtons.forEach((button) => {
   button.addEventListener("click", handleUpdate);
 });
-
-// Function to handle the delete button click
-function handleDelete(event) {
-  const characterDiv = event.target.closest(".character");
-  const charName = characterDiv.querySelector("h2").textContent;
-  const charLevel = characterDiv
-    .querySelector("p:nth-child(2)")
-    .textContent.split(" ")[1];
-  const charClass = characterDiv
-    .querySelector("p:nth-child(3)")
-    .textContent.split(" ")[1];
-  const characterData = {
-    char_name: charName,
-    char_level: charLevel,
-    char_class: charClass,
-  };
-
-  fetch(`/api/characters/find`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(characterData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Error finding character.");
-      }
-    })
-    .then((data) => {
-      const characterId = data.characterId;
-      deleteCharacter(characterId);
-      alert("Character Successfully Deleted!");
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
-}
 
 // Function to handle form submission
 document
