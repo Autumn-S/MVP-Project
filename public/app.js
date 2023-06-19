@@ -93,7 +93,7 @@ document.addEventListener("click", function (event) {
 const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
 const formContainer = document.getElementById("formContainer");
-const characterBox = document.querySelectorAll(".character");
+const characterBox = document.querySelectorAll("div.character");
 const closeButtonList = document.querySelectorAll("button.close");
 
 closeButtonList.forEach((button) => {
