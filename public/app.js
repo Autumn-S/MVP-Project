@@ -1,60 +1,38 @@
 // Function to create a character div
 function createCharacterDiv(characterData) {
-  const closeButton = createButton("close");
-  const characterDiv = createDiv("character");
-  const h2 = createHeading("h2", characterData.char_name);
-  const p1 = createParagraph(`Level: ${characterData.char_level}`);
-  const p2 = createParagraph(`Class: ${characterData.char_class}`);
-  const updateButton = createButton("update", "Update");
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("close");
+
+  const characterDiv = document.createElement("div");
+  characterDiv.classList.add("character");
+
+  const h2 = document.createElement("h2");
+  h2.textContent = characterData.char_name;
+
+  const p1 = document.createElement("p");
+  p1.textContent = `Level: ${characterData.char_level}`;
+
+  const p2 = document.createElement("p");
+  p2.textContent = `Class: ${characterData.char_class}`;
+
+  const updateButton = document.createElement("button");
+  updateButton.classList.add("update");
+  updateButton.textContent = "Update";
   updateButton.addEventListener("click", handleUpdate);
-  const deleteButton = createButton("delete", "Delete");
+
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete");
+  deleteButton.textContent = "Delete";
   deleteButton.addEventListener("click", handleDelete);
 
-  appendChildren(
-    characterDiv,
-    closeButton,
-    h2,
-    p1,
-    p2,
-    updateButton,
-    deleteButton
-  );
+  characterDiv.appendChild(closeButton);
+  characterDiv.appendChild(h2);
+  characterDiv.appendChild(p1);
+  characterDiv.appendChild(p2);
+  characterDiv.appendChild(updateButton);
+  characterDiv.appendChild(deleteButton);
 
   return characterDiv;
-}
-
-// Helper function to create a button
-function createButton(className, text) {
-  const button = document.createElement("button");
-  button.classList.add(className);
-  button.textContent = text;
-  return button;
-}
-
-// Helper function to create a div
-function createDiv(className) {
-  const div = document.createElement("div");
-  div.classList.add(className);
-  return div;
-}
-
-// Helper function to create a heading
-function createHeading(tagName, text) {
-  const heading = document.createElement(tagName);
-  heading.textContent = text;
-  return heading;
-}
-
-// Helper function to create a paragraph
-function createParagraph(text) {
-  const paragraph = document.createElement("p");
-  paragraph.textContent = text;
-  return paragraph;
-}
-
-// Helper function to append multiple children to a parent element
-function appendChildren(parent, ...children) {
-  children.forEach((child) => parent.appendChild(child));
 }
 
 // Function to toggle visibility of an element
@@ -65,15 +43,20 @@ function toggleVisibility(elementId) {
 }
 
 // Event listeners for toggle links
-document
-  .getElementById("aboutLink")
-  .addEventListener("click", () => toggleVisibility("aboutContainerBox"));
-document
-  .getElementById("createLink")
-  .addEventListener("click", () => toggleVisibility("formBox"));
-document
-  .getElementById("displayLink")
-  .addEventListener("click", () => toggleVisibility("characterContainerBox"));
+const aboutLink = document.getElementById("aboutLink");
+aboutLink.addEventListener("click", function () {
+  toggleVisibility("aboutContainerBox");
+});
+
+const createLink = document.getElementById("createLink");
+createLink.addEventListener("click", function () {
+  toggleVisibility("formBox");
+});
+
+const displayLink = document.getElementById("displayLink");
+displayLink.addEventListener("click", function () {
+  toggleVisibility("characterContainerBox");
+});
 
 // Click event listener to hide div when clicked outside
 document.addEventListener("click", function (event) {
@@ -81,39 +64,49 @@ document.addEventListener("click", function (event) {
   const formBox = document.getElementById("formBox");
   const characterContainer = document.getElementById("characterContainerBox");
 
-  const hideElement = (element, link) => {
-    if (
-      !element.contains(event.target) &&
-      event.target !== link &&
-      element.style.display === "block"
-    ) {
-      toggleVisibility(element.id);
-    }
-  };
+  if (
+    !aboutContainer.contains(event.target) &&
+    event.target !== aboutLink &&
+    aboutContainer.style.display === "block"
+  ) {
+    toggleVisibility("aboutContainerBox");
+  }
 
-  hideElement(aboutContainer, aboutLink);
-  hideElement(formBox, createLink);
-  hideElement(characterContainer, displayLink);
+  if (
+    !formBox.contains(event.target) &&
+    event.target !== createLink &&
+    formBox.style.display === "block"
+  ) {
+    toggleVisibility("formBox");
+  }
+
+  if (
+    !characterContainer.contains(event.target) &&
+    event.target !== displayLink &&
+    characterContainer.style.display === "block"
+  ) {
+    toggleVisibility("characterContainerBox");
+  }
 });
 
-// Functionality for the close buttons
+//Functionality for the close buttons
 const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
-const formContainer = document.getElementById("formContainer");
+const characterDivList = document.querySelectorAll(".character");
 const closeButtonList = document.querySelectorAll("button.close");
 
-closeButtonList.forEach((button) => {
-  button.addEventListener("click", () => {
+closeButtonList.forEach(function (button) {
+  button.addEventListener("click", function () {
     aboutContainerBox.style.display = "none";
     formBox.style.display = "none";
-    formContainer.style.display = "none";
+    characterDivList.style.display = "none";
   });
 });
 
 // Function to load and display character data
 function loadAndDisplayCharacterData() {
   fetch("/api/characters")
-    .then((response) => response.json())
+    .then((res) => res.json())
     .then((data) => {
       const characterContainer = document.getElementById("characterContainer");
       characterContainer.innerHTML = "";
@@ -129,12 +122,13 @@ function loadAndDisplayCharacterData() {
 }
 
 // Function to delete a character
-function deleteCharacter(characterId) {
-  fetch(`/api/characters/${characterId}`, {
+function deleteCharacter(characterData) {
+  fetch(`/api/characters/${characterData.characterId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(characterData),
   })
     .then((response) => {
       if (response.ok) {
@@ -148,49 +142,11 @@ function deleteCharacter(characterId) {
     });
 }
 
-// Function to handle the delete button click
-function handleDelete(event) {
-  const characterDiv = event.target.closest(".character");
-  const characterId = characterDiv.dataset.characterId; // Assuming the character ID is stored as a data attribute in the characterDiv
-  const charName = characterDiv.querySelector("h2").textContent;
-  const charLevel = characterDiv
-    .querySelector("p:nth-child(2)")
-    .textContent.split(" ")[1];
-  const charClass = characterDiv
-    .querySelector("p:nth-child(3)")
-    .textContent.split(" ")[1];
-  const characterData = {
-    char_name: charName,
-    char_level: charLevel,
-    char_class: charClass,
-  };
-
-  fetch(`/api/characters/find`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(characterData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Error finding character.");
-      }
-    })
-    .then((data) => {
-      const characterId = data.characterId;
-      deleteCharacter(characterId);
-      alert("Character Successfully Deleted!");
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
-}
-
 function handleUpdate(event) {
   const formContainer = document.getElementById("formContainer");
+  formContainer.style.display =
+    formContainer.style.display === "none" ? "block" : "none";
   const characterDiv = event.target.closest(".character");
-  const characterId = characterDiv.dataset.characterId; // Assuming the character ID is stored as a data attribute in the characterDiv
   const charName = characterDiv.querySelector("h2").textContent;
   const charLevel = characterDiv
     .querySelector("p:nth-child(2)")
@@ -198,15 +154,19 @@ function handleUpdate(event) {
   const charClass = characterDiv
     .querySelector("p:nth-child(3)")
     .textContent.split(" ")[1];
+
   const characterData = {
     char_name: charName,
     char_level: charLevel,
     char_class: charClass,
   };
 
+  // Send a request to the server to retrieve the character ID
   fetch(`/api/characters/find`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(characterData),
   })
     .then((response) => {
@@ -217,39 +177,77 @@ function handleUpdate(event) {
       }
     })
     .then((data) => {
-      const updateForm = createUpdateForm(
-        characterId,
-        charName,
-        charLevel,
-        charClass
-      );
+      // Extract the character ID from the response data
+      const characterId = data.characterId;
 
+      // Create the form and populate it with the character data
+      const updateForm = document.createElement("form");
+      updateForm.id = "updateForm";
+      updateForm.innerHTML = `
+       <button class="close"></button>
+            <label for="charName">Name:</label>
+            <input type="text" id="charName" name="charName" value="${charName}"><br>
+            
+            <label for="charLevel">Level:</label>
+            <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+            
+            <label for="charClass">Class:</label>
+            <select id="charClass" name="charClass">
+            <option value="Druid" ${
+              charClass === "Druid" ? "selected" : ""
+            }>Druid</option>
+            <option value="Sorceress" ${
+              charClass === "Sorceress" ? "selected" : ""
+            }>Sorceress</option>
+            <option value="Necromancer" ${
+              charClass === "Necromancer" ? "selected" : ""
+            }>Necromancer</option>
+            <option value="Rogue" ${
+              charClass === "Rogue" ? "selected" : ""
+            }>Rogue</option>
+            <option value="Barbarian" ${
+              charClass === "Barbarian" ? "selected" : ""
+            }>Barbarian</option>
+            </select>
+            <br>
+          
+            <button type="submit">Update Character</button>
+          `;
+
+      // Attach the submit event listener to the form
       updateForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
         const updatedCharacterData = {
-          characterId: characterId,
+          characterId: characterId, // Use the retrieved character ID
           char_name: updateForm.charName.value,
           char_level: updateForm.charLevel.value,
           char_class: updateForm.charClass.value,
         };
 
+        // Send the updated character data to the server
         fetch(`/api/characters/${characterId}`, {
+          // Use the retrieved character ID in the URL
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(updatedCharacterData),
         })
           .then((response) => response.json())
           .then((data) => {
+            // Handle the server response or perform any necessary actions
             console.log("Server response:", data);
-            alert("Character has been updated!");
+            alert(`Character has been updated!`);
           })
           .catch((error) => {
+            // Handle any errors that occurred during the server request
             console.error("Error:", error);
           });
       });
 
-      formContainer.innerHTML = "";
+      // Append the form to the document
+      formContainer.innerHTML = ""; // Clear previous form, if any
       formContainer.appendChild(updateForm);
     })
     .catch((error) => {
@@ -257,47 +255,58 @@ function handleUpdate(event) {
     });
 }
 
-// Helper function to create the update form
-function createUpdateForm(charName, charLevel, charClass) {
-  const updateForm = document.createElement("form");
-  updateForm.id = "updateForm";
-  updateForm.innerHTML = `
-      <label for="charName">Name:</label>
-      <input type="text" id="charName" name="charName" value="${charName}"><br>
-      
-      <label for="charLevel">Level:</label>
-      <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-      
-      <label for="charClass">Class:</label>
-      <select id="charClass" name="charClass">
-        <option value="Druid" ${
-          charClass === "Druid" ? "selected" : ""
-        }>Druid</option>
-        <option value="Sorceress" ${
-          charClass === "Sorceress" ? "selected" : ""
-        }>Sorceress</option>
-        <option value="Necromancer" ${
-          charClass === "Necromancer" ? "selected" : ""
-        }>Necromancer</option>
-        <option value="Rogue" ${
-          charClass === "Rogue" ? "selected" : ""
-        }>Rogue</option>
-        <option value="Barbarian" ${
-          charClass === "Barbarian" ? "selected" : ""
-        }>Barbarian</option>
-      </select><br>
-    
-      <button type="submit">Update Character</button>
-    `;
-
-  return updateForm;
-}
-
 // Attach click event handlers to the update buttons
 const updateButtons = document.querySelectorAll(".updateButton");
 updateButtons.forEach((button) => {
-  button.addEventListener("click", handleUpdate);
+  button.addEventListener("click", function () {
+    handleUpdate();
+  });
 });
+
+// Function to handle the delete button click
+function handleDelete(event) {
+  const characterDiv = event.target.closest(".character");
+  const charName = characterDiv.querySelector("h2").textContent;
+  const charLevel = characterDiv
+    .querySelector("p:nth-child(2)")
+    .textContent.split(" ")[1];
+  const charClass = characterDiv
+    .querySelector("p:nth-child(3)")
+    .textContent.split(" ")[1];
+
+  const characterData = {
+    char_name: charName,
+    char_level: charLevel,
+    char_class: charClass,
+  };
+
+  // Send a request to the server to retrieve the character ID
+  fetch(`/api/characters/find`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(characterData),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Error finding character.");
+      }
+    })
+    .then((data) => {
+      // Extract the character ID from the response data
+      const characterId = data.characterId;
+
+      // Call your deleteCharacter function with the retrieved character ID
+      deleteCharacter({ characterId: characterId });
+      alert("Character Successfully Deleted!");
+    })
+    .catch((error) => {
+      console.log("Error:", error);
+    });
+}
 
 // Function to handle form submission
 document
@@ -308,6 +317,7 @@ document
     const charName = document.getElementById("charName").value;
     const charLevel = document.getElementById("charLevel").value;
     const charClass = document.getElementById("charClass").value;
+
     const characterData = {
       char_name: charName,
       char_level: charLevel,
@@ -316,7 +326,9 @@ document
 
     fetch("/api/characters", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(characterData),
     })
       .then((response) => {
