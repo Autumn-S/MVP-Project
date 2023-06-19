@@ -68,7 +68,8 @@ a.site-logo {
   transform: translate(-50%, -50%);
 }
 
-#aboutContainerBox {
+#aboutContainerBox,
+#formContainer {
   display: none;
   position: absolute;
   top: 40%;
