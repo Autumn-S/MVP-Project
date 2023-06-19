@@ -100,7 +100,6 @@ document.addEventListener("click", function (event) {
 const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
 const formContainer = document.getElementById("formContainer");
-const characterDivList = document.querySelectorAll(".character");
 const closeButtonList = document.querySelectorAll("button.close");
 
 closeButtonList.forEach((button) => {
@@ -108,7 +107,6 @@ closeButtonList.forEach((button) => {
     aboutContainerBox.style.display = "none";
     formBox.style.display = "none";
     formContainer.style.display = "none";
-    characterDivList.forEach((div) => (div.style.display = "none"));
   });
 });
 
