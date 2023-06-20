@@ -221,7 +221,7 @@ button.update,
 button.delete {
   text-decoration: none;
   color: rgba(238, 231, 231, 0.8);
-  background: rgb(24, 1, 1);
+  background-color: rgba(23, 9, 5, 0.703);
   border: none;
   font-family: "Cinzel", serif;
   font-weight: normal;
