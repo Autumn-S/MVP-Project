@@ -242,6 +242,8 @@ function handleUpdate(event) {
             // Handle the server response or perform any necessary actions
             console.log("Server response:", data);
             alert(`Character has been updated!`);
+            // Hide the div after form submission
+            formContainer.style.display = "none";
           })
           .catch((error) => {
             // Handle any errors that occurred during the server request
