@@ -128,7 +128,7 @@ app.put("/api/characters/:id", async (req, res) => {
     const updateResult =
       await sql`UPDATE characters SET char_name = ${char_name}, char_level = ${level}, char_class = ${char_class} WHERE id = ${characterId}`;
 
-    res.status(200).json({ message: "Character updated successfully!" });
+    res.status(200).json;
   } catch (error) {
     console.error("Error updating character:", error);
     res.status(500).json({ error: "Error updating character" });
