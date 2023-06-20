@@ -317,18 +317,24 @@ document
       });
 
       if (response.ok) {
-        alert("Character created successfully!");
-        const data = await response.json();
-        const characterDiv = createCharacterDiv(data);
-        document.getElementById("characterContainer").appendChild(characterDiv);
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const data = await response.json();
+          const characterDiv = createCharacterDiv(data);
+          document
+            .getElementById("characterContainer")
+            .appendChild(characterDiv);
+        } else {
+          alert("Character created successfully!");
+          console.log("Response content is not JSON:", await response.text());
+        }
 
         // Clear the form
         document.getElementById("charName").value = "";
         document.getElementById("charLevel").value = "";
         document.getElementById("charClass").value = "";
       } else {
-        const errorText = await response.text();
-        console.log("Error:", errorText);
+        console.log("Error:", response.status, response.statusText);
       }
     } catch (error) {
       console.log("Error:", error);
