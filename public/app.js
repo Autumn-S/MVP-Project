@@ -321,6 +321,7 @@ document
         const data = await response.json();
         const characterDiv = createCharacterDiv(data);
         document.getElementById("characterContainer").appendChild(characterDiv);
+        location.reload(); // Refresh the page
       } else {
         throw new Error("Error saving character.");
       }
