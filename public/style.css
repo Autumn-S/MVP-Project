@@ -58,31 +58,21 @@ a.site-logo {
 }
 /* navbar regular css end */
 
-#aboutContainerBox {
+#footerBox {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: transparent;
-  padding: 10px;
-  text-align: center;
-  backdrop-filter: blur(5px);
-}
-
-#aboutContainer {
   background-color: #d7d7d7;
-  background-image: linear-gradient(112deg, #dadada 0%, #525151 74%);
+  background-image: linear-gradient(180deg, #dadada 0%, #353535 74%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-#aboutContainer p {
-  color: white;
-  margin-bottom: 10px;
+  text-align: left;
+  font-family: "Cinzel", serif;
+  color: rgba(228, 228, 228, 0.554);
+  padding: 10px;
 }
 
 #formBox,
@@ -91,6 +81,14 @@ a.site-logo {
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#aboutContainerBox {
+  display: none;
+  position: absolute;
+  top: 35%;
+  left: 25%;
   transform: translate(-50%, -50%);
 }
 
@@ -131,6 +129,7 @@ img {
 }
 
 #characterForm,
+#aboutContainer,
 #updateForm {
   display: flex;
   flex-direction: column;
@@ -233,5 +232,5 @@ button.delete {
 button.update:hover,
 button.delete:hover {
   color: rgba(255, 255, 255, 1);
-  box-shadow: 0 5px 15px rgba(48, 45, 45, 0.663);
+  box-shadow: 0 5px 15px rgba(24, 1, 1, 0.663);
 }

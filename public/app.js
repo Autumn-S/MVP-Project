@@ -50,19 +50,23 @@ function hideOnClickOutside(elementId, linkId) {
 }
 
 // Event listeners for toggle links
+addToggleListener("aboutLink", "aboutContainerBox");
 addToggleListener("createLink", "formBox");
 addToggleListener("displayLink", "characterContainerBox");
 
 // Click event listeners to hide divs when clicked outside
+hideOnClickOutside("aboutContainerBox", "aboutLink");
 hideOnClickOutside("formBox", "createLink");
 hideOnClickOutside("characterContainerBox", "displayLink");
 
 // Functionality for the close buttons
+const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
 const closeButtonList = document.querySelectorAll("button.close");
 
 closeButtonList.forEach((button) => {
   button.addEventListener("click", () => {
+    aboutContainerBox.style.display = "none";
     formBox.style.display = "none";
   });
 });

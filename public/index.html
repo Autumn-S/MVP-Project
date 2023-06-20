@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diablo 4 CC</title>
     <link rel="stylesheet" href="style.css" />
-    <script defer src="app.js"></script>
+    <script async src="app.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cinzel:wght@500&family=Metal+Mania&display=swap");
     </style>
@@ -21,6 +21,7 @@
 
             <!-- site menu/nav -->
             <ul>
+              <li><a href="#home" id="aboutLink">about</a></li>
               <li>
                 <a href="#home" id="createLink">create</a>
               </li>
@@ -87,6 +88,21 @@
         </div>
       </div>
     </div>
+    <div id="aboutContainerBox">
+      <div id="aboutContainer">
+        <div><button class="close"></button></div>
+        <div><h3>Diablo IV Character Creator</h3></div>
+        <p>
+          This webpage lets you keep track of your current Diablo characters.
+        </p>
+        <p>To get started:</p>
+        <p>1. Press the create button on the navigation bar</p>
+        <p>
+          2. If you already have created a character, press the display button
+          on the navigation bar
+        </p>
+      </div>
+    </div>
     <div id="formContainer">
       <div id="updateFormContainer">
         <form id="updateForm">
@@ -116,16 +132,9 @@
         </form>
       </div>
     </div>
-    <footer id="aboutContainerBox">
-      <div id="aboutContainer">
-        <p>
-          This webpage lets you keep track of your current Diablo characters.
-        </p>
-        <p>1. Press the create button on the navigation bar</p>
-        <p>
-          2. If you already have created a character, press the display button
-          on the navigation bar
-        </p>
+    <footer id="footerBox">
+      <div id="outro">
+        <div><h3>Created by: Autumn Sheridan</h3></div>
       </div>
     </footer>
   </body>
