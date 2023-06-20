@@ -158,36 +158,36 @@ async function handleUpdate(event) {
     const updateForm = document.createElement("form");
     updateForm.id = "updateForm";
     updateForm.innerHTML = `
-          <button class="close"></button>
-          <br>
-          <label for="charName">Name:</label>
-          <input type="text" id="charName" name="charName" value="${charName}"><br>
+            <button class="close"></button>
+            <br>
+            <label for="charName">Name:</label>
+            <input type="text" id="charName" name="charName" value="${charName}"><br>
+            
+            <label for="charLevel">Level:</label>
+            <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+            
+            <label for="charClass">Class:</label>
+            <select id="charClass" name="charClass">
+              <option value="Druid" ${
+                charClass === "Druid" ? "selected" : ""
+              }>Druid</option>
+              <option value="Sorceress" ${
+                charClass === "Sorceress" ? "selected" : ""
+              }>Sorceress</option>
+              <option value="Necromancer" ${
+                charClass === "Necromancer" ? "selected" : ""
+              }>Necromancer</option>
+              <option value="Rogue" ${
+                charClass === "Rogue" ? "selected" : ""
+              }>Rogue</option>
+              <option value="Barbarian" ${
+                charClass === "Barbarian" ? "selected" : ""
+              }>Barbarian</option>
+            </select>
+            <br>
           
-          <label for="charLevel">Level:</label>
-          <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-          
-          <label for="charClass">Class:</label>
-          <select id="charClass" name="charClass">
-            <option value="Druid" ${
-              charClass === "Druid" ? "selected" : ""
-            }>Druid</option>
-            <option value="Sorceress" ${
-              charClass === "Sorceress" ? "selected" : ""
-            }>Sorceress</option>
-            <option value="Necromancer" ${
-              charClass === "Necromancer" ? "selected" : ""
-            }>Necromancer</option>
-            <option value="Rogue" ${
-              charClass === "Rogue" ? "selected" : ""
-            }>Rogue</option>
-            <option value="Barbarian" ${
-              charClass === "Barbarian" ? "selected" : ""
-            }>Barbarian</option>
-          </select>
-          <br>
-        
-          <button type="submit">Update Character</button>
-        `;
+            <button type="submit">Update Character</button>
+          `;
 
     // Attach the submit event listener to the form
     updateForm.addEventListener("submit", async function (event) {
@@ -211,13 +211,26 @@ async function handleUpdate(event) {
           body: JSON.stringify(updatedCharacterData),
         });
 
-        const data = await response.json();
-        // Handle the server response or perform any necessary actions
-        console.log("Server response:", data);
-        // Hide the div after form submission
-        formContainer.style.display = "none";
+        if (response.ok) {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const data = await response.json();
+            // Handle the server response or perform any necessary actions
+            console.log("Server response:", data);
+          } else {
+            console.log("Character updated successfully!");
+            console.log("Response content is not JSON:", await response.text());
+          }
+
+          // Hide the div after form submission
+          formContainer.style.display = "none";
+
+          // Reload the page
+          location.reload();
+        } else {
+          console.log("Error updating character.");
+        }
       } catch (error) {
-        // Handle any errors that occurred during the server request
         console.error("Error:", error);
       }
     });
