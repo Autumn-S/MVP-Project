@@ -239,7 +239,6 @@ function handleUpdate(event) {
         })
           .then((response) => response.json())
           .then((data) => {
-            alert(`Character has been updated!`);
             // Handle the server response or perform any necessary actions
             console.log("Server response:", data);
             // Hide the div after form submission
