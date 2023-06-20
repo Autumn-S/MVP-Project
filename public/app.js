@@ -100,7 +100,12 @@ async function deleteCharacter(characterData) {
     );
 
     if (response.ok) {
-      alert("Character deleted successfully!");
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        alert("Character deleted successfully!");
+      } else {
+        console.log("Response content is not JSON:", await response.text());
+      }
     } else {
       console.log("Error deleting character.");
     }
