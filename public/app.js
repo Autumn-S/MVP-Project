@@ -42,20 +42,34 @@ function toggleVisibility(elementId) {
   element.classList.toggle("centered");
 }
 
+// Flag to track if data is loaded
+let isDataLoaded = false;
+
+// Simulating data loading with a timeout
+setTimeout(function () {
+  isDataLoaded = true;
+}, 2000); // Replace this with your actual data loading logic
+
 // Event listeners for toggle links
 const aboutLink = document.getElementById("aboutLink");
 aboutLink.addEventListener("click", function () {
-  toggleVisibility("aboutContainerBox");
+  if (isDataLoaded) {
+    toggleVisibility("aboutContainerBox");
+  }
 });
 
 const createLink = document.getElementById("createLink");
 createLink.addEventListener("click", function () {
-  toggleVisibility("formBox");
+  if (isDataLoaded) {
+    toggleVisibility("formBox");
+  }
 });
 
 const displayLink = document.getElementById("displayLink");
 displayLink.addEventListener("click", function () {
-  toggleVisibility("characterContainerBox");
+  if (isDataLoaded) {
+    toggleVisibility("characterContainerBox");
+  }
 });
 
 // Click event listener to hide div when clicked outside
