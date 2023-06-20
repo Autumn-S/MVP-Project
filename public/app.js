@@ -63,6 +63,7 @@ document.addEventListener("click", function (event) {
   const aboutContainer = document.getElementById("aboutContainerBox");
   const formBox = document.getElementById("formBox");
   const characterContainer = document.getElementById("characterContainerBox");
+  const formContainer = document.getElementById("formContainer");
 
   if (
     !aboutContainer.contains(event.target) &&
@@ -87,24 +88,47 @@ document.addEventListener("click", function (event) {
   ) {
     toggleVisibility("characterContainerBox");
   }
+
+  if (
+    formContainer.style.display === "block" &&
+    !formContainer.contains(event.target) &&
+    event.target !== formBox &&
+    event.target !== createLink
+  ) {
+    formContainer.style.display = "none";
+  }
 });
 
 // Functionality for the close buttons
 const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
-const formContainer = document.getElementById("formContainer");
 const closeButtonList = document.querySelectorAll("button.close");
-const characterBoxList = document.querySelectorAll("div.character");
 
 closeButtonList.forEach((button) => {
   button.addEventListener("click", () => {
     aboutContainerBox.style.display = "none";
     formBox.style.display = "none";
-    formContainer.style.display = "none";
-    characterBoxList.forEach((characterBox) => {
-      characterBox.style.display = "none";
-    });
   });
+});
+
+// Event delegation for close buttons
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("close")) {
+    const closeButton = event.target;
+    const updateFormContainer = closeButton.closest("updateFormContainer");
+    const characterContainer = closeButton.closest("characterContainer");
+
+    if (updateFormContainer) {
+      updateFormContainer.style.display = "none";
+    }
+
+    if (characterContainer) {
+      const characterBox = closeButton.closest(".character");
+      if (characterBox) {
+        characterBox.style.display = "none";
+      }
+    }
+  }
 });
 
 // Function to load and display character data
