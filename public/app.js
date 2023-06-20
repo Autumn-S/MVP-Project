@@ -322,7 +322,6 @@ function handleDelete(event) {
 
       // Call your deleteCharacter function with the retrieved character ID
       deleteCharacter({ characterId: characterId });
-      alert("Character Successfully Deleted!");
     })
     .catch((error) => {
       console.log("Error:", error);
