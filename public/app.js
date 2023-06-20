@@ -213,7 +213,7 @@ async function handleUpdate(event) {
           const contentType = response.headers.get("content-type");
           if (contentType && contentType.includes("application/json")) {
             alert("Character updated successfully!");
-            formContainer.style.display = "none";
+            document.getElementById("formContainer").style.display = "none";
             const data = await response.json();
             // Handle the server response or perform any necessary actions
             console.log("Server response:", data);
@@ -231,9 +231,12 @@ async function handleUpdate(event) {
       }
     });
 
+    // Clear previous form, if any
+    document.getElementById("formContainer").innerHTML = "";
     // Append the form to the document
-    formContainer.innerHTML = ""; // Clear previous form, if any
-    formContainer.appendChild(updateForm);
+    document
+      .getElementById("formContainer")
+      .appendChild(document.getElementById("updateForm"));
   } catch (error) {
     console.log("Error:", error);
   }
