@@ -218,7 +218,8 @@ button.close:after {
 }
 
 button.update,
-button.delete {
+button.delete,
+button.submit {
   text-decoration: none;
   color: rgba(238, 231, 231, 0.8);
   background-color: rgba(23, 9, 5, 0.703);
@@ -230,7 +231,8 @@ button.delete {
 }
 
 button.update:hover,
-button.delete:hover {
+button.delete:hover,
+button.submit:hover {
   color: rgba(255, 255, 255, 1);
   box-shadow: 0 5px 15px rgba(24, 1, 1, 0.663);
 }
