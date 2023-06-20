@@ -206,8 +206,8 @@ button.delete {
   border-radius: 100px;
   box-shadow: rgba(222, 199, 199, 0.35) 0 -25px 18px -14px inset,
     rgba(222, 199, 199, 0.35) 0 1px 2px, rgba(222, 199, 199, 0.35) 0 2px 4px,
-    rgba(222, 199, 199, 0.35) 0 4px 8px, rgba(222, 199, 199, 0.35) 0 8px 16px,
-    rgba(222, 199, 199, 0.35) 0 16px 32px;
+    rgba(222, 199, 199, 0.35) 0 4px 6px, rgba(222, 199, 199, 0.35) 0 6px 12px,
+    rgba(222, 199, 199, 0.35) 0 12px 22px;
   color: rgb(255, 243, 243);
   cursor: pointer;
   display: inline-block;
@@ -226,7 +226,7 @@ button.update:hover,
 button.delete:hover {
   box-shadow: rgba(222, 199, 199, 0.35) 0 -25px 18px -14px inset,
     rgba(222, 199, 199, 0.35) 0 1px 2px, rgba(222, 199, 199, 0.35) 0 2px 4px,
-    rgba(222, 199, 199, 0.35) 0 4px 8px, rgba(222, 199, 199, 0.35) 0 8px 16px,
-    rgba(222, 199, 199, 0.35) 0 16px 32px;
+    rgba(222, 199, 199, 0.35) 0 4px 6px, rgba(222, 199, 199, 0.35) 0 6px 12px,
+    rgba(222, 199, 199, 0.35) 0 12px 22px;
   transform: scale(1.05) rotate(-1deg);
 }
