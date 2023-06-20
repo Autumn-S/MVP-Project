@@ -268,7 +268,12 @@ function createCharacterDiv(characterData) {
       <button class="close"></button>
     `;
 
-  characterDiv.querySelector(".update").addEventListener("click", handleUpdate);
+  const updateButton = characterDiv.querySelector(".update");
+  updateButton.addEventListener("click", function (event) {
+    event.stopPropagation();
+    handleUpdate(characterData); // Pass the character data to the handleUpdate function
+  });
+
   characterDiv.querySelector(".delete").addEventListener("click", handleDelete);
 
   return characterDiv;
