@@ -205,12 +205,16 @@ async function handleUpdate(event) {
         const data = await response.json();
         // Handle the server response or perform any necessary actions
         console.log("Server response:", data);
-        // Hide the div after form submission
-        formContainer.style.display = "none";
       } catch (error) {
         // Handle any errors that occurred during the server request
         console.error("Error:", error);
       }
+    });
+
+    // Add event listener to the close button
+    const closeButton = updateForm.querySelector("#closeButton");
+    closeButton.addEventListener("click", function () {
+      formContainer.style.display = "block";
     });
 
     // Append the form to the document
@@ -318,6 +322,11 @@ document
         const data = await response.json();
         const characterDiv = createCharacterDiv(data);
         document.getElementById("characterContainer").appendChild(characterDiv);
+
+        // Clear form inputs
+        document.getElementById("charName").value = "";
+        document.getElementById("charLevel").value = "";
+        document.getElementById("charClass").value = "";
       } else {
         throw new Error("Error saving character.");
       }
