@@ -25,53 +25,39 @@ function toggleVisibility(elementId) {
   element.classList.toggle("centered");
 }
 
+// Function to add event listener for toggle link
+function addToggleListener(linkId, elementId) {
+  const link = document.getElementById(linkId);
+  link.addEventListener("click", function () {
+    toggleVisibility(elementId);
+  });
+}
+
+// Function to hide element when clicked outside
+function hideOnClickOutside(elementId, linkId) {
+  document.addEventListener("click", function (event) {
+    const element = document.getElementById(elementId);
+    const link = document.getElementById(linkId);
+
+    if (
+      !element.contains(event.target) &&
+      event.target !== link &&
+      element.style.display === "block"
+    ) {
+      toggleVisibility(elementId);
+    }
+  });
+}
+
 // Event listeners for toggle links
-const aboutLink = document.getElementById("aboutLink");
-aboutLink.addEventListener("click", function () {
-  toggleVisibility("aboutContainerBox");
-});
+addToggleListener("aboutLink", "aboutContainerBox");
+addToggleListener("createLink", "formBox");
+addToggleListener("displayLink", "characterContainerBox");
 
-const createLink = document.getElementById("createLink");
-createLink.addEventListener("click", function () {
-  toggleVisibility("formBox");
-});
-
-const displayLink = document.getElementById("displayLink");
-displayLink.addEventListener("click", function () {
-  toggleVisibility("characterContainerBox");
-});
-
-// Click event listener to hide div when clicked outside
-document.addEventListener("click", function (event) {
-  const aboutContainer = document.getElementById("aboutContainerBox");
-  const formBox = document.getElementById("formBox");
-  const characterContainer = document.getElementById("characterContainerBox");
-
-  if (
-    !aboutContainer.contains(event.target) &&
-    event.target !== aboutLink &&
-    aboutContainer.style.display === "block"
-  ) {
-    toggleVisibility("aboutContainerBox");
-  }
-
-  if (
-    !formBox.contains(event.target) &&
-    event.target !== createLink &&
-    formBox.style.display === "block"
-  ) {
-    toggleVisibility("formBox");
-  }
-
-  if (
-    !characterContainer.contains(event.target) &&
-    event.target !== displayLink &&
-    characterContainer.style.display === "block"
-  ) {
-    toggleVisibility("characterContainerBox");
-  }
-});
-
+// Click event listeners to hide divs when clicked outside
+hideOnClickOutside("aboutContainerBox", "aboutLink");
+hideOnClickOutside("formBox", "createLink");
+hideOnClickOutside("characterContainerBox", "displayLink");
 // Functionality for the close buttons
 const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
