@@ -4,13 +4,13 @@ function createCharacterDiv(characterData) {
   characterDiv.classList.add("character");
 
   characterDiv.innerHTML = `
-      <h2>${characterData.char_name}</h2>
-      <p>Level: ${characterData.char_level}</p>
-      <p>Class: ${characterData.char_class}</p>
-      <button class="update">Update</button>
-      <button class="delete">Delete</button>
-      <button class="close"></button>
-    `;
+    <h2>${characterData.char_name}</h2>
+    <p>Level: ${characterData.char_level}</p>
+    <p>Class: ${characterData.char_class}</p>
+    <button class="update">Update</button>
+    <button class="delete">Delete</button>
+    <button class="close"></button>
+  `;
 
   return characterDiv;
 }
@@ -140,37 +140,37 @@ function createUpdateForm(characterId, characterData) {
   const updateForm = document.createElement("form");
   updateForm.id = "updateForm";
   updateForm.innerHTML = `
-      <button class="close"></button>
-      <br>
-      <label for="charName">Name:</label>
-      <input type="text" id="charName" name="charName" value="${
-        characterData.char_name
-      }"><br>
-      <label for="charLevel">Level:</label>
-      <input type="number" id="charLevel" name="charLevel" value="${
-        characterData.char_level
-      }"><br>
-      <label for="charClass">Class:</label>
-      <select id="charClass" name="charClass">
-        <option value="Druid" ${
-          characterData.char_class === "Druid" ? "selected" : ""
-        }>Druid</option>
-        <option value="Sorceress" ${
-          characterData.char_class === "Sorceress" ? "selected" : ""
-        }>Sorceress</option>
-        <option value="Necromancer" ${
-          characterData.char_class === "Necromancer" ? "selected" : ""
-        }>Necromancer</option>
-        <option value="Rogue" ${
-          characterData.char_class === "Rogue" ? "selected" : ""
-        }>Rogue</option>
-        <option value="Barbarian" ${
-          characterData.char_class === "Barbarian" ? "selected" : ""
-        }>Barbarian</option>
-      </select>
-      <br>
-      <button type="submit">Update Character</button>
-    `;
+    <button class="close"></button>
+    <br>
+    <label for="charName">Name:</label>
+    <input type="text" id="charName" name="charName" value="${
+      characterData.char_name
+    }"><br>
+    <label for="charLevel">Level:</label>
+    <input type="number" id="charLevel" name="charLevel" value="${
+      characterData.char_level
+    }"><br>
+    <label for="charClass">Class:</label>
+    <select id="charClass" name="charClass">
+      <option value="Druid" ${
+        characterData.char_class === "Druid" ? "selected" : ""
+      }>Druid</option>
+      <option value="Sorceress" ${
+        characterData.char_class === "Sorceress" ? "selected" : ""
+      }>Sorceress</option>
+      <option value="Necromancer" ${
+        characterData.char_class === "Necromancer" ? "selected" : ""
+      }>Necromancer</option>
+      <option value="Rogue" ${
+        characterData.char_class === "Rogue" ? "selected" : ""
+      }>Rogue</option>
+      <option value="Barbarian" ${
+        characterData.char_class === "Barbarian" ? "selected" : ""
+      }>Barbarian</option>
+    </select>
+    <br>
+    <button type="submit">Update Character</button>
+  `;
 
   updateForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -260,20 +260,15 @@ function createCharacterDiv(characterData) {
   characterDiv.classList.add("character");
 
   characterDiv.innerHTML = `
-      <h2>${characterData.char_name}</h2>
-      <p>Level: ${characterData.char_level}</p>
-      <p>Class: ${characterData.char_class}</p>
-      <button class="update">Update</button>
-      <button class="delete">Delete</button>
-      <button class="close"></button>
-    `;
+    <h2>${characterData.char_name}</h2>
+    <p>Level: ${characterData.char_level}</p>
+    <p>Class: ${characterData.char_class}</p>
+    <button class="update">Update</button>
+    <button class="delete">Delete</button>
+    <button class="close"></button>
+  `;
 
-  const updateButton = characterDiv.querySelector(".update");
-  updateButton.addEventListener("click", function (event) {
-    event.stopPropagation();
-    handleUpdate(characterData); // Pass the character data to the handleUpdate function
-  });
-
+  characterDiv.querySelector(".update").addEventListener("click", handleUpdate);
   characterDiv.querySelector(".delete").addEventListener("click", handleDelete);
 
   return characterDiv;
