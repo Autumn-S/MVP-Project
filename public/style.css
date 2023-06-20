@@ -72,7 +72,7 @@ a.site-logo {
   display: none;
   position: absolute;
   top: 35%;
-  left: 20%;
+  left: 25%;
   transform: translate(-50%, -50%);
 }
 
@@ -112,7 +112,7 @@ img {
   align-items: center;
   text-align: left;
   color: #ded1cd;
-  text-shadow: 1.5px 1.5px rgb(28, 28, 28);
+  text-shadow: 1px 1px rgb(93, 92, 92);
   gap: 0.6rem;
   padding: 1rem;
   width: fit-content;

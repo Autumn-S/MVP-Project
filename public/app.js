@@ -3,34 +3,17 @@ function createCharacterDiv(characterData) {
   const characterDiv = document.createElement("div");
   characterDiv.classList.add("character");
 
-  const h2 = document.createElement("h2");
-  h2.textContent = characterData.char_name;
+  characterDiv.innerHTML = `
+          <h2>${characterData.char_name}</h2>
+          <p>Level: ${characterData.char_level}</p>
+          <p>Class: ${characterData.char_class}</p>
+          <button class="update">Update</button>
+          <button class="delete">Delete</button>
+          <button class="close"></button>
+        `;
 
-  const p1 = document.createElement("p");
-  p1.textContent = `Level: ${characterData.char_level}`;
-
-  const p2 = document.createElement("p");
-  p2.textContent = `Class: ${characterData.char_class}`;
-
-  const updateButton = document.createElement("button");
-  updateButton.classList.add("update");
-  updateButton.textContent = "Update";
-  updateButton.addEventListener("click", handleUpdate);
-
-  const deleteButton = document.createElement("button");
-  deleteButton.classList.add("delete");
-  deleteButton.textContent = "Delete";
-  deleteButton.addEventListener("click", handleDelete);
-
-  const closeButton = document.createElement("button");
-  closeButton.classList.add("close");
-
-  characterDiv.appendChild(h2);
-  characterDiv.appendChild(p1);
-  characterDiv.appendChild(p2);
-  characterDiv.appendChild(updateButton);
-  characterDiv.appendChild(deleteButton);
-  characterDiv.appendChild(closeButton);
+  characterDiv.querySelector(".update").addEventListener("click", handleUpdate);
+  characterDiv.querySelector(".delete").addEventListener("click", handleDelete);
 
   return characterDiv;
 }
@@ -130,8 +113,6 @@ async function deleteCharacter(characterData) {
     );
 
     if (response.ok) {
-      const characterDiv = event.target.closest(".character");
-      characterDiv.style.display = "none";
       alert("Character deleted successfully!");
     } else {
       console.log("Error deleting character.");
