@@ -131,6 +131,8 @@ function deleteCharacter(characterData) {
     .then((response) => {
       if (response.ok) {
         alert("Character deleted successfully!");
+        const element = document.getElementById("character");
+        element.style.display = "none";
       } else {
         console.log("Error deleting character.");
       }
