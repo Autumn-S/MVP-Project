@@ -130,6 +130,8 @@ async function deleteCharacter(characterData) {
     );
 
     if (response.ok) {
+      const characterDiv = event.target.closest(".character");
+      characterDiv.style.display = "none";
       alert("Character deleted successfully!");
     } else {
       console.log("Error deleting character.");

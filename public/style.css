@@ -141,7 +141,7 @@ img {
   height: 240px;
   padding: 1.1rem;
   backdrop-filter: blur(1px);
-  background-color: rgba(78, 37, 26, 0.599);
+  background-color: rgba(23, 9, 5, 0.703);
   box-shadow: 2px 2px 5px 0px rgba(9, 9, 9, 0.7);
   border-radius: 5px;
 }
