@@ -215,19 +215,19 @@ async function handleUpdate(event) {
             const data = await response.json();
             // Handle the server response or perform any necessary actions
             alert("Character updated successfully!");
-            location.reload();
             console.log("Server response:", data);
-
-            // Clear and hide the form
-            formContainer.innerHTML = "";
-            formContainer.style.display = "none";
           } else {
-            console.log("Error updating character.");
+            console.log("Response content is not JSON:", await response.text());
           }
+
+          // Hide the div after form submission
+          formContainer.style.display = "none";
+
+          // Reload the page
+          location.reload();
+        } else {
+          console.log("Error updating character.");
         }
-        // Append the form to the document
-        formContainer.innerHTML = ""; // Clear previous form, if any
-        formContainer.appendChild(updateForm);
       } catch (error) {
         console.error("Error:", error);
       }
