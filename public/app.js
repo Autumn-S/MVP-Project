@@ -48,7 +48,7 @@ let isDataLoaded = false;
 // Simulating data loading with a timeout
 setTimeout(function () {
   isDataLoaded = true;
-}, 2000); // Replace this with your actual data loading logic
+}, 200);
 
 // Event listeners for toggle links
 const aboutLink = document.getElementById("aboutLink");
