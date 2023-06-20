@@ -327,7 +327,8 @@ document
         document.getElementById("charLevel").value = "";
         document.getElementById("charClass").value = "";
       } else {
-        throw new Error("Error saving character.");
+        const errorText = await response.text();
+        console.log("Error:", errorText);
       }
     } catch (error) {
       console.log("Error:", error);
