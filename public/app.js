@@ -1,30 +1,36 @@
 // Function to create a character div
 function createCharacterDiv(characterData) {
-  const characterDiv = createElement("div", { classList: ["character"] });
+  const characterDiv = document.createElement("div");
+  characterDiv.classList.add("character");
 
-  const h2 = createElement("h2", { textContent: characterData.char_name });
-  const p1 = createElement("p", {
-    textContent: `Level: ${characterData.char_level}`,
-  });
-  const p2 = createElement("p", {
-    textContent: `Class: ${characterData.char_class}`,
-  });
+  const h2 = document.createElement("h2");
+  h2.textContent = characterData.char_name;
 
-  const updateButton = createElement("button", {
-    classList: ["update"],
-    textContent: "Update",
-    eventListeners: { click: handleUpdate },
-  });
+  const p1 = document.createElement("p");
+  p1.textContent = `Level: ${characterData.char_level}`;
 
-  const deleteButton = createElement("button", {
-    classList: ["delete"],
-    textContent: "Delete",
-    eventListeners: { click: handleDelete },
-  });
+  const p2 = document.createElement("p");
+  p2.textContent = `Class: ${characterData.char_class}`;
 
-  const closeButton = createElement("button", { classList: ["close"] });
+  const updateButton = document.createElement("button");
+  updateButton.classList.add("update");
+  updateButton.textContent = "Update";
+  updateButton.addEventListener("click", handleUpdate);
 
-  characterDiv.append(h2, p1, p2, updateButton, deleteButton, closeButton);
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete");
+  deleteButton.textContent = "Delete";
+  deleteButton.addEventListener("click", handleDelete);
+
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("close");
+
+  characterDiv.appendChild(h2);
+  characterDiv.appendChild(p1);
+  characterDiv.appendChild(p2);
+  characterDiv.appendChild(updateButton);
+  characterDiv.appendChild(deleteButton);
+  characterDiv.appendChild(closeButton);
 
   return characterDiv;
 }
@@ -37,25 +43,19 @@ function toggleVisibility(elementId) {
 }
 
 // Event listeners for toggle links
-function toggleLinkClickHandler(elementId) {
-  return function () {
-    toggleVisibility(elementId);
-  };
-}
-
 const aboutLink = document.getElementById("aboutLink");
-aboutLink.addEventListener(
-  "click",
-  toggleLinkClickHandler("aboutContainerBox")
-);
+aboutLink.addEventListener("click", function () {
+  toggleVisibility("aboutContainerBox");
+});
 
 const createLink = document.getElementById("createLink");
-createLink.addEventListener("click", toggleLinkClickHandler("formBox"));
+createLink.addEventListener("click", function () {
+  toggleVisibility("formBox");
+});
 
 const displayLink = document.getElementById("displayLink");
 displayLink.addEventListener("click", function () {
   toggleVisibility("characterContainerBox");
-  loadAndDisplayCharacterData();
 });
 
 // Click event listener to hide div when clicked outside
@@ -119,7 +119,6 @@ function loadAndDisplayCharacterData() {
     });
 }
 
-// Function to delete a character
 function deleteCharacter(characterData) {
   fetch(`/api/characters/${characterData.characterId}`, {
     method: "DELETE",
@@ -127,10 +126,12 @@ function deleteCharacter(characterData) {
   })
     .then((response) => {
       if (response.ok) {
-        const characterContainer =
-          document.getElementById("characterContainer");
-        characterContainer.style.display = "none";
         alert("Character deleted successfully!");
+
+        // Hide the character box after successful deletion
+        const characterButton = characterData.characterButton;
+        const characterDiv = characterButton.closest(".character");
+        characterDiv.style.display = "none";
       } else {
         console.log("Error deleting character.");
       }
@@ -356,8 +357,6 @@ document
         }
       })
       .then((data) => {
-        const characterForm = document.getElementById("characterForm");
-        characterForm.style.display = "none";
         const characterDiv = createCharacterDiv(data);
         document.getElementById("characterContainer").appendChild(characterDiv);
       })
