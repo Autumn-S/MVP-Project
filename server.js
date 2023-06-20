@@ -13,7 +13,7 @@ app.use(express.json()); // Parse JSON request bodies
 app.get("/api/characters", async (_, res) => {
   try {
     const data = await sql`SELECT * FROM characters`;
-    res.json(data);
+    res.status(200).json(data);
   } catch (error) {
     console.error("Error retrieving characters:", error);
     res.status(500).json({ error: "Error retrieving characters" });
@@ -29,7 +29,7 @@ app.get("/api/characters/:id", async (req, res) => {
     if (data.length === 0) {
       res.status(404).json({ error: "Character not found" });
     } else {
-      res.json(data[0]);
+      res.status(200).json(data[0]);
     }
   } catch (error) {
     console.error("Error retrieving character:", error);
@@ -98,7 +98,7 @@ app.post("/api/characters/find", async (req, res) => {
       res.status(404).json({ error: "Character not found" });
     } else {
       const characterId = data[0].id;
-      res.json({ characterId });
+      res.status(201).json({ characterId });
     }
   } catch (error) {
     console.error("Error finding character:", error);
