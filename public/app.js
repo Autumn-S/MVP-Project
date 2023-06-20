@@ -63,7 +63,6 @@ document.addEventListener("click", function (event) {
   const aboutContainer = document.getElementById("aboutContainerBox");
   const formBox = document.getElementById("formBox");
   const characterContainer = document.getElementById("characterContainerBox");
-  const formContainer = document.getElementById("formContainer");
 
   if (
     !aboutContainer.contains(event.target) &&
@@ -88,15 +87,6 @@ document.addEventListener("click", function (event) {
   ) {
     toggleVisibility("characterContainerBox");
   }
-
-  if (
-    formContainer.style.display === "block" &&
-    !formContainer.contains(event.target) &&
-    event.target !== formBox &&
-    event.target !== createLink
-  ) {
-    formContainer.style.display = "none";
-  }
 });
 
 // Functionality for the close buttons
@@ -104,16 +94,14 @@ const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
 const formContainer = document.getElementById("formContainer");
 const closeButtonList = document.querySelectorAll("button.close");
-const characterBoxList = document.querySelectorAll("div.character");
 
 closeButtonList.forEach((button) => {
   button.addEventListener("click", () => {
     aboutContainerBox.style.display = "none";
     formBox.style.display = "none";
     formContainer.style.display = "none";
-    characterBoxList.forEach((characterBox) => {
-      characterBox.style.display = "none";
-    });
+    const characterBox = button.nextElementSibling;
+    characterBox.style.display = "none";
   });
 });
 
@@ -198,16 +186,16 @@ function handleUpdate(event) {
       const updateForm = document.createElement("form");
       updateForm.id = "updateForm";
       updateForm.innerHTML = `
-          <button class="close"></button>
-          <br>
-          <label for="charName">Name:</label>
-          <input type="text" id="charName" name="charName" value="${charName}"><br>
-          
-          <label for="charLevel">Level:</label>
-          <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-          
-          <label for="charClass">Class:</label>
-          <select id="charClass" name="charClass">
+            <button class="close"></button>
+            <br>
+            <label for="charName">Name:</label>
+            <input type="text" id="charName" name="charName" value="${charName}"><br>
+            
+            <label for="charLevel">Level:</label>
+            <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+            
+            <label for="charClass">Class:</label>
+            <select id="charClass" name="charClass">
             <option value="Druid" ${
               charClass === "Druid" ? "selected" : ""
             }>Druid</option>
@@ -223,11 +211,11 @@ function handleUpdate(event) {
             <option value="Barbarian" ${
               charClass === "Barbarian" ? "selected" : ""
             }>Barbarian</option>
-          </select>
-          <br>
-        
-          <button type="submit">Update Character</button>
-        `;
+            </select>
+            <br>
+          
+            <button type="submit">Update Character</button>
+          `;
 
       // Attach the submit event listener to the form
       updateForm.addEventListener("submit", function (event) {
@@ -254,9 +242,6 @@ function handleUpdate(event) {
             // Handle the server response or perform any necessary actions
             console.log("Server response:", data);
             alert(`Character has been updated!`);
-
-            // Hide the update form
-            formContainer.style.display = "none";
           })
           .catch((error) => {
             // Handle any errors that occurred during the server request
