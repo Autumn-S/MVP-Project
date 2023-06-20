@@ -102,46 +102,49 @@ closeButtonList.forEach((button) => {
 });
 
 // Function to load and display character data
-function loadAndDisplayCharacterData() {
-  fetch("/api/characters")
-    .then((res) => res.json())
-    .then((data) => {
-      const characterContainer = document.getElementById("characterContainer");
-      characterContainer.innerHTML = "";
+async function loadAndDisplayCharacterData() {
+  try {
+    const res = await fetch("/api/characters");
+    const data = await res.json();
 
-      data.forEach((character) => {
-        const characterDiv = createCharacterDiv(character);
-        characterContainer.appendChild(characterDiv);
-      });
-    })
-    .catch((error) => {
-      console.log("Error:", error);
+    const characterContainer = document.getElementById("characterContainer");
+    characterContainer.innerHTML = "";
+
+    data.forEach((character) => {
+      const characterDiv = createCharacterDiv(character);
+      characterContainer.appendChild(characterDiv);
     });
+  } catch (error) {
+    console.log("Error:", error);
+  }
 }
 
-function deleteCharacter(characterData) {
-  fetch(`/api/characters/${characterData.characterId}`, {
-    method: "DELETE",
-    body: JSON.stringify(characterData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        alert("Character deleted successfully!");
-
-        // Hide the character box after successful deletion
-        const characterButton = characterData.characterButton;
-        const characterDiv = characterButton.closest(".character");
-        characterDiv.style.display = "none";
-      } else {
-        console.log("Error deleting character.");
+async function deleteCharacter(characterData) {
+  try {
+    const response = await fetch(
+      `/api/characters/${characterData.characterId}`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(characterData),
       }
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
+    );
+
+    if (response.ok) {
+      alert("Character deleted successfully!");
+
+      // Hide the character box after successful deletion
+      const characterButton = characterData.characterButton;
+      const characterDiv = characterButton.closest(".character");
+      characterDiv.style.display = "none";
+    } else {
+      console.log("Error deleting character.");
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
 }
 
-function handleUpdate(event) {
+async function handleUpdate(event) {
   const formContainer = document.getElementById("formContainer");
   formContainer.style.display =
     formContainer.style.display === "none" ? "block" : "none";
@@ -160,100 +163,97 @@ function handleUpdate(event) {
     char_class: charClass,
   };
 
-  // Send a request to the server to retrieve the character ID
-  fetch(`/api/characters/find`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(characterData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Error finding character.");
-      }
-    })
-    .then((data) => {
-      // Extract the character ID from the response data
-      const characterId = data.characterId;
+  try {
+    // Send a request to the server to retrieve the character ID
+    const response = await fetch(`/api/characters/find`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(characterData),
+    });
 
-      // Create the form and populate it with the character data
-      const updateForm = document.createElement("form");
-      updateForm.id = "updateForm";
-      updateForm.innerHTML = `
-            <button class="close"></button>
-            <br>
-            <label for="charName">Name:</label>
-            <input type="text" id="charName" name="charName" value="${charName}"><br>
-            
-            <label for="charLevel">Level:</label>
-            <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-            
-            <label for="charClass">Class:</label>
-            <select id="charClass" name="charClass">
-            <option value="Druid" ${
-              charClass === "Druid" ? "selected" : ""
-            }>Druid</option>
-            <option value="Sorceress" ${
-              charClass === "Sorceress" ? "selected" : ""
-            }>Sorceress</option>
-            <option value="Necromancer" ${
-              charClass === "Necromancer" ? "selected" : ""
-            }>Necromancer</option>
-            <option value="Rogue" ${
-              charClass === "Rogue" ? "selected" : ""
-            }>Rogue</option>
-            <option value="Barbarian" ${
-              charClass === "Barbarian" ? "selected" : ""
-            }>Barbarian</option>
-            </select>
-            <br>
-          
-            <button type="submit">Update Character</button>
-          `;
+    if (!response.ok) {
+      throw new Error("Error finding character.");
+    }
 
-      // Attach the submit event listener to the form
-      updateForm.addEventListener("submit", function (event) {
-        event.preventDefault();
+    const data = await response.json();
+    const characterId = data.characterId;
 
-        const updatedCharacterData = {
-          characterId: characterId, // Use the retrieved character ID
-          char_name: updateForm.charName.value,
-          char_level: updateForm.charLevel.value,
-          char_class: updateForm.charClass.value,
-        };
+    // Create the form and populate it with the character data
+    const updateForm = document.createElement("form");
+    updateForm.id = "updateForm";
+    updateForm.innerHTML = `
+        <button class="close"></button>
+        <br>
+        <label for="charName">Name:</label>
+        <input type="text" id="charName" name="charName" value="${charName}"><br>
+        
+        <label for="charLevel">Level:</label>
+        <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+        
+        <label for="charClass">Class:</label>
+        <select id="charClass" name="charClass">
+          <option value="Druid" ${
+            charClass === "Druid" ? "selected" : ""
+          }>Druid</option>
+          <option value="Sorceress" ${
+            charClass === "Sorceress" ? "selected" : ""
+          }>Sorceress</option>
+          <option value="Necromancer" ${
+            charClass === "Necromancer" ? "selected" : ""
+          }>Necromancer</option>
+          <option value="Rogue" ${
+            charClass === "Rogue" ? "selected" : ""
+          }>Rogue</option>
+          <option value="Barbarian" ${
+            charClass === "Barbarian" ? "selected" : ""
+          }>Barbarian</option>
+        </select>
+        <br>
+      
+        <button type="submit">Update Character</button>
+      `;
 
+    // Attach the submit event listener to the form
+    updateForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const updatedCharacterData = {
+        characterId: characterId, // Use the retrieved character ID
+        char_name: updateForm.charName.value,
+        char_level: updateForm.charLevel.value,
+        char_class: updateForm.charClass.value,
+      };
+
+      try {
         // Send the updated character data to the server
-        fetch(`/api/characters/${characterId}`, {
+        const response = await fetch(`/api/characters/${characterId}`, {
           // Use the retrieved character ID in the URL
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(updatedCharacterData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            // Handle the server response or perform any necessary actions
-            console.log("Server response:", data);
-            // Hide the div after form submission
-            formContainer.style.display = "none";
-          })
-          .catch((error) => {
-            // Handle any errors that occurred during the server request
-            console.error("Error:", error);
-          });
-      });
+        });
 
-      // Append the form to the document
-      formContainer.innerHTML = ""; // Clear previous form, if any
-      formContainer.appendChild(updateForm);
-    })
-    .catch((error) => {
-      console.log("Error:", error);
+        const data = await response.json();
+        // Handle the server response or perform any necessary actions
+        console.log("Server response:", data);
+        // Hide the div after form submission
+        formContainer.style.display = "none";
+      } catch (error) {
+        // Handle any errors that occurred during the server request
+        console.error("Error:", error);
+      }
     });
+
+    // Append the form to the document
+    formContainer.innerHTML = ""; // Clear previous form, if any
+    formContainer.appendChild(updateForm);
+  } catch (error) {
+    console.log("Error:", error);
+  }
 }
 
 // Attach click event handlers to the update buttons
@@ -282,53 +282,51 @@ document.addEventListener("click", function (event) {
 });
 
 // Function to handle the delete button click
-function handleDelete(event) {
-  const characterDiv = event.target.closest(".character");
-  const charName = characterDiv.querySelector("h2").textContent;
-  const charLevel = characterDiv
-    .querySelector("p:nth-child(2)")
-    .textContent.split(" ")[1];
-  const charClass = characterDiv
-    .querySelector("p:nth-child(3)")
-    .textContent.split(" ")[1];
+async function handleDelete(event) {
+  try {
+    const characterDiv = event.target.closest(".character");
+    const charName = characterDiv.querySelector("h2").textContent;
+    const charLevel = characterDiv
+      .querySelector("p:nth-child(2)")
+      .textContent.split(" ")[1];
+    const charClass = characterDiv
+      .querySelector("p:nth-child(3)")
+      .textContent.split(" ")[1];
 
-  const characterData = {
-    char_name: charName,
-    char_level: charLevel,
-    char_class: charClass,
-  };
+    const characterData = {
+      char_name: charName,
+      char_level: charLevel,
+      char_class: charClass,
+    };
 
-  // Send a request to the server to retrieve the character ID
-  fetch(`/api/characters/find`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(characterData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Error finding character.");
-      }
-    })
-    .then((data) => {
+    // Send a request to the server to retrieve the character ID
+    const response = await fetch(`/api/characters/find`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(characterData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
       // Extract the character ID from the response data
       const characterId = data.characterId;
 
-      // Call your deleteCharacter function with the retrieved character ID
-      deleteCharacter({ characterId: characterId });
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
+      // Call the deleteCharacter function with the retrieved character ID
+      await deleteCharacter({ characterId: characterId });
+    } else {
+      throw new Error("Error finding character.");
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
 }
 
 // Function to handle form submission
 document
   .getElementById("characterForm")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const charName = document.getElementById("charName").value;
@@ -341,26 +339,24 @@ document
       char_class: charClass,
     };
 
-    fetch("/api/characters", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(characterData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          alert("Character created successfully!");
-          return response.json();
-        } else {
-          throw new Error("Error saving character.");
-        }
-      })
-      .then((data) => {
+    try {
+      const response = await fetch("/api/characters", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(characterData),
+      });
+
+      if (response.ok) {
+        alert("Character created successfully!");
+        const data = await response.json();
         const characterDiv = createCharacterDiv(data);
         document.getElementById("characterContainer").appendChild(characterDiv);
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-      });
+      } else {
+        throw new Error("Error saving character.");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
   });
