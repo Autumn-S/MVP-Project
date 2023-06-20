@@ -92,6 +92,7 @@ document.addEventListener("click", function (event) {
 // Functionality for the close buttons
 const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");
+const closeButtonList = document.querySelectorAll("button.close");
 
 closeButtonList.forEach((button) => {
   button.addEventListener("click", () => {
