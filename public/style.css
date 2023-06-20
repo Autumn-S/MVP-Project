@@ -205,8 +205,8 @@ button.delete {
   text-decoration: none;
   color: rgba(238, 231, 231, 0.8);
   background: rgb(24, 1, 1);
-  padding: 15px 40px;
-  border-radius: 4px;
+  border: none;
+  font-family: "Cinzel", serif;
   font-weight: normal;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
@@ -215,5 +215,5 @@ button.delete {
 button.update:hover,
 button.delete:hover {
   color: rgba(255, 255, 255, 1);
-  box-shadow: 0 5px 15px rgba(24, 1, 1, 0.663);
+  box-shadow: 0 5px 15px rgba(48, 45, 45, 0.663);
 }
