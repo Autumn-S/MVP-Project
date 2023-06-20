@@ -239,8 +239,11 @@ function handleUpdate(event) {
         })
           .then((response) => response.json())
           .then((data) => {
+            alert(`Character has been updated!`);
             // Handle the server response or perform any necessary actions
             console.log("Server response:", data);
+            // Hide the div after form submission
+            formContainer.style.display = "none";
           })
           .catch((error) => {
             // Handle any errors that occurred during the server request
@@ -251,9 +254,6 @@ function handleUpdate(event) {
       // Append the form to the document
       formContainer.innerHTML = ""; // Clear previous form, if any
       formContainer.appendChild(updateForm);
-      alert(`Character has been updated!`);
-      // Hide the div after form submission
-      formContainer.style.display = "none";
     })
     .catch((error) => {
       console.log("Error:", error);
