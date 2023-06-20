@@ -225,6 +225,9 @@ async function handleUpdate(event) {
             console.log("Error updating character.");
           }
         }
+        // Append the form to the document
+        formContainer.innerHTML = ""; // Clear previous form, if any
+        formContainer.appendChild(updateForm);
       } catch (error) {
         console.error("Error:", error);
       }
