@@ -266,6 +266,23 @@ updateButtons.forEach((button) => {
   });
 });
 
+// Event delegation for close buttons
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("close")) {
+    const closeButton = event.target;
+    const updateFormContainer = closeButton.closest("#updateFormContainer");
+    const characterBox = closeButton.closest(".character");
+
+    if (updateFormContainer) {
+      updateFormContainer.style.display = "none";
+    }
+
+    if (characterBox) {
+      characterBox.style.display = "none";
+    }
+  }
+});
+
 // Function to handle the delete button click
 function handleDelete(event) {
   const characterDiv = event.target.closest(".character");
