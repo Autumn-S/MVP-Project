@@ -123,16 +123,12 @@ function loadAndDisplayCharacterData() {
 function deleteCharacter(characterData) {
   fetch(`/api/characters/${characterData.characterId}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(characterData),
   })
     .then((response) => {
       if (response.ok) {
         alert("Character deleted successfully!");
-        const element = document.getElementById("character");
-        element.style.display = "none";
+        characterDiv.style.display = "none";
       } else {
         console.log("Error deleting character.");
       }
