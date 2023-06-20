@@ -229,7 +229,10 @@ async function handleUpdate(event) {
 const updateButtons = document.querySelectorAll(".updateButton");
 updateButtons.forEach((button) => {
   button.addEventListener("click", function () {
-    handleUpdate();
+    if (!formContainer.classList.contains("open")) {
+      handleUpdate();
+      formContainer.classList.add("open");
+    }
   });
 });
 
