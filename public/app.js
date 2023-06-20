@@ -58,6 +58,7 @@ addToggleListener("displayLink", "characterContainerBox");
 hideOnClickOutside("aboutContainerBox", "aboutLink");
 hideOnClickOutside("formBox", "createLink");
 hideOnClickOutside("characterContainerBox", "displayLink");
+
 // Functionality for the close buttons
 const aboutContainerBox = document.getElementById("aboutContainerBox");
 const formBox = document.getElementById("formBox");

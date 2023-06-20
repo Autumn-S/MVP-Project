@@ -6,7 +6,7 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 const sql = postgres(process.env.DATABASE_URL);
-app.use(cors);
+app.use(cors());
 app.use(express.static("public"));
 app.use(express.json()); // Parse JSON request bodies
 
