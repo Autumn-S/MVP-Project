@@ -214,7 +214,6 @@ button.delete {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  animation: glowing-button-85 20s linear infinite;
 }
 
 button.update:before,
@@ -230,8 +229,6 @@ button.delete:before {
   -webkit-filter: blur(5px);
   width: calc(100% + 4px);
   height: calc(100% + 4px);
-  animation: glowing-button-85 20s linear infinite;
-  transition: opacity 0.3s ease-in-out;
   border-radius: 10px;
 }
 
@@ -245,6 +242,16 @@ button.delete:before {
   100% {
     background-position: 0 0;
   }
+}
+
+button.update {
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+}
+
+button.delete {
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
 }
 
 button.update:after,
