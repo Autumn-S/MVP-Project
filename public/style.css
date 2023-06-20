@@ -202,17 +202,16 @@ button.close:after {
 
 button.update,
 button.delete {
-  background-color: lightgrey;
+  background-color: rgb(48, 0, 0);
   border-radius: 100px;
-  box-shadow: rgba(187, 44, 44, 0.35) 0 -25px 18px -14px inset,
-    rgba(187, 44, 44, 0.35) 0 1px 2px, rgba(187, 44, 44, 0.35) 0 2px 4px,
-    rgba(187, 44, 44, 0.35) 0 4px 8px, rgba(187, 44, 44, 0.35) 0 8px 16px,
-    rgba(187, 44, 44, 0.35) 0 16px 32px;
-  color: rgb(128, 0, 0);
+  box-shadow: rgba(247, 90, 90, 0.35) 0 -25px 18px -14px inset,
+    rgba(247, 90, 90, 0.35) 0 1px 2px, rgba(247, 90, 90, 0.35) 0 2px 4px,
+    rgba(247, 90, 90, 0.35) 0 4px 8px, rgba(247, 90, 90, 0.35) 0 8px 16px,
+    rgba(247, 90, 90, 0.35) 0 16px 32px;
+  color: rgb(255, 243, 243);
   cursor: pointer;
   display: inline-block;
   font-family: "Cinzel", serif;
-  padding: 7px 20px;
   text-align: center;
   text-decoration: none;
   transition: all 250ms;
@@ -225,9 +224,9 @@ button.delete {
 
 button.update:hover,
 button.delete:hover {
-  box-shadow: rgba(187, 44, 44, 0.35) 0 -25px 18px -14px inset,
-    rgba(187, 44, 44, 0.35) 0 1px 2px, rgba(187, 44, 44, 0.35) 0 2px 4px,
-    rgba(187, 44, 44, 0.35) 0 4px 8px, rgba(187, 44, 44, 0.35) 0 8px 16px,
-    rgba(187, 44, 44, 0.35) 0 16px 32px;
+  box-shadow: rgba(247, 90, 90, 0.35) 0 -25px 18px -14px inset,
+    rgba(247, 90, 90, 0.35) 0 1px 2px, rgba(247, 90, 90, 0.35) 0 2px 4px,
+    rgba(247, 90, 90, 0.35) 0 4px 8px, rgba(247, 90, 90, 0.35) 0 8px 16px,
+    rgba(247, 90, 90, 0.35) 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
 }
