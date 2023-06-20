@@ -270,7 +270,7 @@ updateButtons.forEach((button) => {
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("close")) {
     const closeButton = event.target;
-    const updateFormContainer = closeButton.closest("#updateFormContainer");
+    const updateFormContainer = closeButton.closest("updateFormContainer");
     const characterBox = closeButton.closest(".character");
 
     if (updateFormContainer) {
