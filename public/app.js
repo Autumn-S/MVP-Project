@@ -111,26 +111,6 @@ closeButtonList.forEach((button) => {
   });
 });
 
-// Event delegation for close buttons
-document.addEventListener("click", function (event) {
-  if (event.target.classList.contains("close")) {
-    const closeButton = event.target;
-    const updateFormContainer = closeButton.closest("updateFormContainer");
-    const characterContainer = closeButton.closest("characterContainer");
-
-    if (updateFormContainer) {
-      updateFormContainer.style.display = "none";
-    }
-
-    if (characterContainer) {
-      const characterBox = closeButton.closest(".character");
-      if (characterBox) {
-        characterBox.style.display = "none";
-      }
-    }
-  }
-});
-
 // Function to load and display character data
 function loadAndDisplayCharacterData() {
   fetch("/api/characters")
