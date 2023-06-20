@@ -322,11 +322,6 @@ document
         const data = await response.json();
         const characterDiv = createCharacterDiv(data);
         document.getElementById("characterContainer").appendChild(characterDiv);
-
-        // Clear form inputs
-        document.getElementById("charName").value = "";
-        document.getElementById("charLevel").value = "";
-        document.getElementById("charClass").value = "";
       } else {
         throw new Error("Error saving character.");
       }
