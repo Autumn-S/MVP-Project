@@ -216,9 +216,6 @@ async function handleUpdate(event) {
             // Handle the server response or perform any necessary actions
             const data = await response.json();
             console.log("Server response:", data);
-
-            // Reload the page
-            location.reload();
           } else {
             console.log("Response content is not JSON:", await response.text());
           }
