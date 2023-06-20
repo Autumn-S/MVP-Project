@@ -214,6 +214,7 @@ button.delete {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  animation: glowing-button-85 20s linear infinite;
 }
 
 button.update:before,
@@ -244,14 +245,6 @@ button.delete:before {
   100% {
     background-position: 0 0;
   }
-}
-
-button.update {
-  animation: glowing-button-85 20s linear infinite;
-}
-
-button.delete {
-  animation: glowing-button-85 20s linear infinite reverse;
 }
 
 button.update:after,
