@@ -131,11 +131,6 @@ async function deleteCharacter(characterData) {
 
     if (response.ok) {
       alert("Character deleted successfully!");
-
-      // Hide the character box after successful deletion
-      const characterButton = characterData.characterButton;
-      const characterDiv = characterButton.closest(".character");
-      characterDiv.style.display = "none";
     } else {
       console.log("Error deleting character.");
     }
