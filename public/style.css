@@ -59,8 +59,7 @@ a.site-logo {
 /* navbar regular css end */
 
 #formBox,
-#characterContainerBox,
-#formContainer {
+#characterContainerBox {
   display: none;
   position: absolute;
   top: 50%;

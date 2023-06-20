@@ -356,6 +356,8 @@ document
         }
       })
       .then((data) => {
+        const characterForm = document.getElementById("characterForm");
+        characterForm.style.display = "none";
         const characterDiv = createCharacterDiv(data);
         document.getElementById("characterContainer").appendChild(characterDiv);
       })
