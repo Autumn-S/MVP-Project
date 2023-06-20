@@ -273,8 +273,8 @@ document.addEventListener("click", function (event) {
     const formContainer = closeButton.closest("formContainer");
     const characterBox = closeButton.closest(".character");
 
-    if (updateFormContainer) {
-      updateFormContainer.style.display = "none";
+    if (formContainer) {
+      formContainer.style.display = "none";
     }
 
     if (characterBox) {
