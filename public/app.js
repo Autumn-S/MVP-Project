@@ -102,11 +102,11 @@ async function deleteCharacter(characterData) {
     if (response.ok) {
       const contentType = response.headers.get("content-type");
       if (contentType && contentType.includes("application/json")) {
+        alert("Character deleted successfully!");
       } else {
         console.log("Response content is not JSON:", await response.text());
       }
-
-      alert("Character deleted successfully!");
+      // Reload the page
       location.reload();
     } else {
       console.log("Error deleting character.");
@@ -210,16 +210,21 @@ async function handleUpdate(event) {
         });
 
         if (response.ok) {
-          const contentType = response.headers.get("content-type");
-          if (contentType && contentType.includes("application/json")) {
+          if (response.ok) {
             alert("Character updated successfully!");
-            formContainer.style.display = "none";
-            const data = await response.json();
+
             // Handle the server response or perform any necessary actions
+            const data = await response.json();
             console.log("Server response:", data);
+
+            // Reload the page
+            location.reload();
           } else {
             console.log("Response content is not JSON:", await response.text());
           }
+
+          // Hide the div after form submission
+          formContainer.style.display = "none";
 
           // Reload the page
           location.reload();
