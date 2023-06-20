@@ -42,34 +42,20 @@ function toggleVisibility(elementId) {
   element.classList.toggle("centered");
 }
 
-// Flag to track if data is loaded
-let isDataLoaded = false;
-
-// Simulating data loading with a timeout
-setTimeout(function () {
-  isDataLoaded = true;
-}, 200);
-
 // Event listeners for toggle links
 const aboutLink = document.getElementById("aboutLink");
 aboutLink.addEventListener("click", function () {
-  if (isDataLoaded) {
-    toggleVisibility("aboutContainerBox");
-  }
+  toggleVisibility("aboutContainerBox");
 });
 
 const createLink = document.getElementById("createLink");
 createLink.addEventListener("click", function () {
-  if (isDataLoaded) {
-    toggleVisibility("formBox");
-  }
+  toggleVisibility("formBox");
 });
 
 const displayLink = document.getElementById("displayLink");
 displayLink.addEventListener("click", function () {
-  if (isDataLoaded) {
-    toggleVisibility("characterContainerBox");
-  }
+  toggleVisibility("characterContainerBox");
 });
 
 // Click event listener to hide div when clicked outside
