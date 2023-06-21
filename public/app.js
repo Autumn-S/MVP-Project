@@ -69,23 +69,24 @@ closeButtonList.forEach((button) => {
 });
 
 // Function to refresh character container
-async function refreshCharacterContainer() {
+function refreshCharacterContainer() {
   const characterContainerBox = document.getElementById(
     "characterContainerBox"
   );
   characterContainerBox.innerHTML = ""; // Clear existing content
 
-  try {
-    const response = await fetch("/api/characters");
-    const data = await response.json();
-
-    data.forEach((character) => {
-      const characterDiv = createCharacterDiv(character);
-      characterContainerBox.appendChild(characterDiv);
+  // Fetch and render the characters again
+  fetch("/api/characters")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((character) => {
+        const characterDiv = createCharacterDiv(character);
+        characterContainerBox.appendChild(characterDiv);
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
-  } catch (error) {
-    console.error("Error:", error);
-  }
 }
 
 // Add event listener to characterContainerBox
@@ -95,8 +96,8 @@ characterContainerBox.addEventListener("change", refreshCharacterContainer);
 // Function to load and display character data
 async function loadAndDisplayCharacterData() {
   try {
-    const response = await fetch("/api/characters");
-    const data = await response.json();
+    const res = await fetch("/api/characters");
+    const data = await res.json();
 
     const characterContainer = document.getElementById("characterContainer");
     characterContainer.innerHTML = "";
@@ -110,11 +111,15 @@ async function loadAndDisplayCharacterData() {
   }
 }
 
-async function deleteCharacter(characterId) {
+async function deleteCharacter(characterData) {
   try {
-    const response = await fetch(`/api/characters/${characterId}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `/api/characters/${characterData.characterId}`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(characterData),
+      }
+    );
 
     if (response.ok) {
       alert("Character deleted successfully!");
@@ -129,6 +134,9 @@ async function deleteCharacter(characterId) {
 }
 
 async function handleUpdate(event) {
+  const formContainer = document.getElementById("formContainer");
+  formContainer.style.display =
+    formContainer.style.display === "none" ? "block" : "none";
   const characterDiv = event.target.closest(".character");
   const charName = characterDiv.querySelector("h2").textContent;
   const charLevel = characterDiv
@@ -184,36 +192,36 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
   const updateForm = document.createElement("form");
   updateForm.id = "updateForm";
   updateForm.innerHTML = `
-    <button class="close"></button>
-    <br>
-    <label for="charName">Name:</label>
-    <input type="text" id="charName" name="charName" value="${charName}"><br>
-
-    <label for="charLevel">Level:</label>
-    <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-
-    <label for="charClass">Class:</label>
-    <select id="charClass" name="charClass">
-      <option value="Druid" ${
-        charClass === "Druid" ? "selected" : ""
-      }>Druid</option>
-      <option value="Sorceress" ${
-        charClass === "Sorceress" ? "selected" : ""
-      }>Sorceress</option>
-      <option value="Necromancer" ${
-        charClass === "Necromancer" ? "selected" : ""
-      }>Necromancer</option>
-      <option value="Rogue" ${
-        charClass === "Rogue" ? "selected" : ""
-      }>Rogue</option>
-      <option value="Barbarian" ${
-        charClass === "Barbarian" ? "selected" : ""
-      }>Barbarian</option>
-    </select>
-    <br>
-
-    <button type="submit">Update Character</button>
-  `;
+      <button class="close"></button>
+      <br>
+      <label for="charName">Name:</label>
+      <input type="text" id="charName" name="charName" value="${charName}"><br>
+  
+      <label for="charLevel">Level:</label>
+      <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+  
+      <label for="charClass">Class:</label>
+      <select id="charClass" name="charClass">
+        <option value="Druid" ${
+          charClass === "Druid" ? "selected" : ""
+        }>Druid</option>
+        <option value="Sorceress" ${
+          charClass === "Sorceress" ? "selected" : ""
+        }>Sorceress</option>
+        <option value="Necromancer" ${
+          charClass === "Necromancer" ? "selected" : ""
+        }>Necromancer</option>
+        <option value="Rogue" ${
+          charClass === "Rogue" ? "selected" : ""
+        }>Rogue</option>
+        <option value="Barbarian" ${
+          charClass === "Barbarian" ? "selected" : ""
+        }>Barbarian</option>
+      </select>
+      <br>
+  
+      <button type="submit">Update Character</button>
+    `;
 
   updateForm.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -225,25 +233,21 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
       char_class: updateForm.charClass.value,
     };
 
-    try {
-      const response = await fetch(`/api/characters/${characterId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedCharacterData),
-      });
+    const response = await fetch(`/api/characters/${characterId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedCharacterData),
+    });
 
-      if (!response.ok) {
-        console.error("Error updating character.");
-        return;
-      }
-
-      formContainer.style.display = "none";
-      alert("Character updated successfully!");
-    } catch (error) {
-      console.log("Error:", error);
+    if (!response.ok) {
+      console.error("Error updating character.");
+      return;
     }
+
+    formContainer.style.display = "none";
+    alert("Character updated successfully!");
   });
 
   const closeButton = updateForm.querySelector(".close");
@@ -257,43 +261,16 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
   formContainer.appendChild(updateForm);
 }
 
-async function handleDelete(event) {
-  try {
-    const characterDiv = event.target.closest(".character");
-    const charName = characterDiv.querySelector("h2").textContent;
-    const charLevel = characterDiv
-      .querySelector("p:nth-child(2)")
-      .textContent.split(" ")[1];
-    const charClass = characterDiv
-      .querySelector("p:nth-child(3)")
-      .textContent.split(" ")[1];
-
-    const characterData = {
-      char_name: charName,
-      char_level: charLevel,
-      char_class: charClass,
-    };
-
-    const response = await fetch(`/api/characters/find`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(characterData),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      const characterId = data.characterId;
-
-      await deleteCharacter({ characterId: characterId });
-    } else {
-      throw new Error("Error finding character.");
+// Attach click event handlers to the update buttons
+const updateButtons = document.querySelectorAll(".updateButton");
+updateButtons.forEach((button) => {
+  button.addEventListener("click", function (event) {
+    if (!formContainer.classList.contains("open")) {
+      handleUpdate(event); // Pass the event parameter to handleUpdate()
+      formContainer.classList.add("open");
     }
-  } catch (error) {
-    console.log("Error:", error);
-  }
-}
+  });
+});
 
 // Event delegation for close buttons
 document.addEventListener("click", function (event) {
@@ -311,6 +288,48 @@ document.addEventListener("click", function (event) {
     }
   }
 });
+
+// Function to handle the delete button click
+async function handleDelete(event) {
+  try {
+    const characterDiv = event.target.closest(".character");
+    const charName = characterDiv.querySelector("h2").textContent;
+    const charLevel = characterDiv
+      .querySelector("p:nth-child(2)")
+      .textContent.split(" ")[1];
+    const charClass = characterDiv
+      .querySelector("p:nth-child(3)")
+      .textContent.split(" ")[1];
+
+    const characterData = {
+      char_name: charName,
+      char_level: charLevel,
+      char_class: charClass,
+    };
+
+    // Send a request to the server to retrieve the character ID
+    const response = await fetch(`/api/characters/find`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(characterData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // Extract the character ID from the response data
+      const characterId = data.characterId;
+
+      // Call the deleteCharacter function with the retrieved character ID
+      await deleteCharacter({ characterId: characterId });
+    } else {
+      throw new Error("Error finding character.");
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
 
 // Function to handle form submission
 document
@@ -350,7 +369,10 @@ document
         }
 
         alert("Character created successfully!");
-        document.getElementById("characterForm").reset();
+        // Clear the form
+        document.getElementById("charName").value = "";
+        document.getElementById("charLevel").value = "";
+        document.getElementById("charClass").value = "";
       } else {
         console.log("Error:", response.status, response.statusText);
       }
