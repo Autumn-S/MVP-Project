@@ -219,15 +219,10 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
         },
         body: JSON.stringify(updatedCharacterData),
       });
-
-      if (response.ok) {
-        alert("Character updated successfully!");
-        setTimeout(() => {
-          location.reload();
-        }, 500);
-      } else {
-        alert("Error updating character.");
-      }
+      alert("Error updating character.");
+      setTimeout(() => {
+        location.reload();
+      }, 500);
     } catch (error) {
       console.error("Error:", error);
     }
