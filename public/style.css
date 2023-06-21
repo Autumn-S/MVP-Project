@@ -73,6 +73,7 @@ a.site-logo {
   font-family: "Cinzel", serif;
   color: rgba(228, 228, 228, 0.554);
   padding: 10px;
+  text-decoration: none;
 }
 
 #formBox,
