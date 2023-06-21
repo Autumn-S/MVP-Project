@@ -206,8 +206,9 @@ async function handleUpdate(event) {
 
         if (response.ok) {
           alert("Character updated successfully!");
-          const data = await response.json();
-          location.reload();
+          document.getElementById("charName").value = "";
+          document.getElementById("charLevel").value = "";
+          document.getElementById("charClass").value = "";
         } else {
           alert("Error updating character.");
         }
@@ -215,10 +216,6 @@ async function handleUpdate(event) {
         console.error("Error:", error);
       }
     });
-
-    // Append the form to the document
-    formContainer.innerHTML = ""; // Clear previous form, if any
-    formContainer.appendChild(updateForm);
   } catch (error) {
     console.log("Error:", error);
   }
@@ -320,18 +317,9 @@ document
       });
 
       if (response.ok) {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          const data = await response.json();
-          const characterDiv = createCharacterDiv(data);
-          document
-            .getElementById("characterContainer")
-            .appendChild(characterDiv);
-          alert("Character created successfully!");
-        } else {
-          console.log(await response.text());
-        }
-
+        const characterDiv = createCharacterDiv(data);
+        document.getElementById("characterContainer").appendChild(characterDiv);
+        alert("Character created successfully!");
         // Clear the form
         document.getElementById("charName").value = "";
         document.getElementById("charLevel").value = "";
