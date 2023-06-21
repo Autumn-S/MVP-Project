@@ -57,6 +57,7 @@ addToggleListener("displayLink", "characterContainerBox");
 // Click event listeners to hide divs when clicked outside
 hideOnClickOutside("aboutContainerBox", "aboutLink");
 hideOnClickOutside("formBox", "createLink");
+hideOnClickOutside("characterContainerBox", "displayLink");
 
 // Functionality for the close buttons
 const aboutContainerBox = document.getElementById("aboutContainerBox");
@@ -69,6 +70,30 @@ closeButtonList.forEach((button) => {
     formBox.style.display = "none";
   });
 });
+
+function refreshCharacterContainer() {
+  const characterContainerBox = document.getElementById(
+    "characterContainerBox"
+  );
+  characterContainerBox.innerHTML = ""; // Clear existing content
+
+  // Fetch and render the characters again
+  fetch("/api/characters")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((character) => {
+        const characterDiv = createCharacterDiv(character);
+        characterContainerBox.appendChild(characterDiv);
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Add event listener to characterContainerBox
+const characterContainerBox = document.getElementById("characterContainerBox");
+characterContainerBox.addEventListener("change", refreshCharacterContainer);
 
 // Function to load and display character data
 async function loadAndDisplayCharacterData() {
@@ -350,27 +375,3 @@ document
       console.log("Error:", error);
     }
   });
-
-function refreshCharacterContainer() {
-  const characterContainerBox = document.getElementById(
-    "characterContainerBox"
-  );
-  characterContainerBox.innerHTML = ""; // Clear existing content
-
-  // Fetch and render the characters again
-  fetch("/api/characters")
-    .then((response) => response.json())
-    .then((data) => {
-      data.forEach((character) => {
-        const characterDiv = createCharacterDiv(character);
-        characterContainerBox.appendChild(characterDiv);
-      });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
-// Add event listener to characterContainerBox
-const characterContainerBox = document.getElementById("characterContainerBox");
-characterContainerBox.addEventListener("change", refreshCharacterContainer);
