@@ -235,23 +235,21 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
       char_class: updateForm.charClass.value,
     };
 
-    try {
-      const response = await fetch(`/api/characters/${characterId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedCharacterData),
-      });
-      if (!response.ok) {
-        throw new Error("Error updating character.");
-      }
-      formContainer.style.display = "none";
-      alert("Character updated successfully!");
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error updating character.");
+    const response = await fetch(`/api/characters/${characterId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedCharacterData),
+    });
+
+    if (!response.ok) {
+      console.error("Error updating character.");
+      return;
     }
+
+    formContainer.style.display = "none";
+    alert("Character updated successfully!");
   });
 
   formContainer.innerHTML = "";
