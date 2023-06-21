@@ -116,6 +116,7 @@ async function handleUpdate(event) {
   formContainer.style.display =
     formContainer.style.display === "none" ? "block" : "none";
   const characterDiv = event.target.closest(".character");
+  const characterId = characterDiv.dataset.characterId;
   const charName = characterDiv.querySelector("h2").textContent;
   const charLevel = characterDiv
     .querySelector("p:nth-child(2)")
@@ -124,43 +125,22 @@ async function handleUpdate(event) {
     .querySelector("p:nth-child(3)")
     .textContent.split(" ")[1];
 
-  const characterData = {
-    char_name: charName,
-    char_level: charLevel,
-    char_class: charClass,
-  };
-
   try {
-    const characterId = await retrieveCharacterId(characterData);
-
-    if (characterId) {
-      createUpdateForm(characterId, charName, charLevel, charClass);
-    } else {
-      throw new Error("Error finding character ID.");
-    }
-  } catch (error) {
-    console.log("Error:", error);
-  }
-}
-
-async function retrieveCharacterId(characterData) {
-  try {
-    const response = await fetch(`/api/characters/find`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(characterData),
-    });
+    const response = await fetch(`/api/characters/${characterId}/update`);
 
     if (!response.ok) {
-      throw new Error("Error finding character.");
+      throw new Error("Error retrieving character data.");
     }
 
     const data = await response.json();
-    return data.characterId;
+    createUpdateForm(
+      data.characterId,
+      data.char_name,
+      data.char_level,
+      data.char_class
+    );
   } catch (error) {
-    throw new Error("Error retrieving character ID.");
+    console.log("Error:", error);
   }
 }
 
@@ -219,7 +199,12 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
         },
         body: JSON.stringify(updatedCharacterData),
       });
-      alert("Error updating character.");
+
+      if (!response.ok) {
+        throw new Error("Error updating character.");
+      }
+
+      alert("Character updated successfully.");
       setTimeout(() => {
         location.reload();
       }, 500);

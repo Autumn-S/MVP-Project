@@ -20,7 +20,7 @@ app.get("/api/characters", async (_, res) => {
   }
 });
 
-app.get("/api/characters/:id", async (req, res) => {
+app.get("/api/characters/:id/update", async (req, res) => {
   try {
     const characterId = req.params.id;
 
@@ -29,7 +29,14 @@ app.get("/api/characters/:id", async (req, res) => {
     if (data.length === 0) {
       res.status(404).json({ error: "Character not found" });
     } else {
-      res.status(200).json(data[0]);
+      const { char_name, char_level, char_class } = data[0];
+      const updatedCharacterData = {
+        characterId: characterId,
+        char_name: char_name,
+        char_level: char_level,
+        char_class: char_class,
+      };
+      res.status(200).json(updatedCharacterData);
     }
   } catch (error) {
     console.error("Error retrieving character:", error);
