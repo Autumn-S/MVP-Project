@@ -259,9 +259,9 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
 // Attach click event handlers to the update buttons
 const updateButtons = document.querySelectorAll(".updateButton");
 updateButtons.forEach((button) => {
-  button.addEventListener("click", function () {
+  button.addEventListener("click", function (event) {
     if (!formContainer.classList.contains("open")) {
-      handleUpdate();
+      handleUpdate(event); // Pass the event parameter to handleUpdate()
       formContainer.classList.add("open");
     }
   });
