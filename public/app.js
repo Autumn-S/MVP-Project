@@ -100,12 +100,7 @@ async function deleteCharacter(characterData) {
     );
 
     if (response.ok) {
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        alert("Character deleted successfully!");
-      } else {
-        console.log("Response content is not JSON:", await response.text());
-      }
+      alert("Character deleted successfully!");
       // Reload the page
       location.reload();
     } else {
@@ -156,36 +151,36 @@ async function handleUpdate(event) {
     const updateForm = document.createElement("form");
     updateForm.id = "updateForm";
     updateForm.innerHTML = `
-          <button class="close"></button>
-          <br>
-          <label for="charName">Name:</label>
-          <input type="text" id="charName" name="charName" value="${charName}"><br>
+            <button class="close"></button>
+            <br>
+            <label for="charName">Name:</label>
+            <input type="text" id="charName" name="charName" value="${charName}"><br>
+            
+            <label for="charLevel">Level:</label>
+            <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+            
+            <label for="charClass">Class:</label>
+            <select id="charClass" name="charClass">
+              <option value="Druid" ${
+                charClass === "Druid" ? "selected" : ""
+              }>Druid</option>
+              <option value="Sorceress" ${
+                charClass === "Sorceress" ? "selected" : ""
+              }>Sorceress</option>
+              <option value="Necromancer" ${
+                charClass === "Necromancer" ? "selected" : ""
+              }>Necromancer</option>
+              <option value="Rogue" ${
+                charClass === "Rogue" ? "selected" : ""
+              }>Rogue</option>
+              <option value="Barbarian" ${
+                charClass === "Barbarian" ? "selected" : ""
+              }>Barbarian</option>
+            </select>
+            <br>
           
-          <label for="charLevel">Level:</label>
-          <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-          
-          <label for="charClass">Class:</label>
-          <select id="charClass" name="charClass">
-            <option value="Druid" ${
-              charClass === "Druid" ? "selected" : ""
-            }>Druid</option>
-            <option value="Sorceress" ${
-              charClass === "Sorceress" ? "selected" : ""
-            }>Sorceress</option>
-            <option value="Necromancer" ${
-              charClass === "Necromancer" ? "selected" : ""
-            }>Necromancer</option>
-            <option value="Rogue" ${
-              charClass === "Rogue" ? "selected" : ""
-            }>Rogue</option>
-            <option value="Barbarian" ${
-              charClass === "Barbarian" ? "selected" : ""
-            }>Barbarian</option>
-          </select>
-          <br>
-        
-          <button type="submit">Update Character</button>
-        `;
+            <button type="submit">Update Character</button>
+          `;
 
     // Attach the submit event listener to the form
     updateForm.addEventListener("submit", async function (event) {
@@ -210,23 +205,11 @@ async function handleUpdate(event) {
         });
 
         if (response.ok) {
-          if (response.ok) {
-            alert("Character updated successfully!");
-
-            // Handle the server response or perform any necessary actions
-            const data = await response.json();
-            console.log("Server response:", data);
-          } else {
-            console.log("Response content is not JSON:", await response.text());
-          }
-
-          // Hide the div after form submission
-          formContainer.style.display = "none";
-
-          // Reload the page
+          alert("Character updated successfully!");
+          const data = await response.json();
           location.reload();
         } else {
-          console.log("Error updating character.");
+          alert("Error updating character.");
         }
       } catch (error) {
         console.error("Error:", error);
@@ -344,9 +327,9 @@ document
           document
             .getElementById("characterContainer")
             .appendChild(characterDiv);
-        } else {
           alert("Character created successfully!");
-          console.log("Response content is not JSON:", await response.text());
+        } else {
+          console.log(await response.text());
         }
 
         // Clear the form
