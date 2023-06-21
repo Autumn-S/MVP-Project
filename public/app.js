@@ -137,36 +137,33 @@ async function deleteCharacter(characterData) {
 
 async function handleUpdate(event) {
   const formContainer = document.getElementById("formContainer");
+  formContainer.style.display =
+    formContainer.style.display === "none" ? "block" : "none";
+  const characterDiv = event.target.closest(".character");
+  const charName = characterDiv.querySelector("h2").textContent;
+  const charLevel = characterDiv
+    .querySelector("p:nth-child(2)")
+    .textContent.split(" ")[1];
+  const charClass = characterDiv
+    .querySelector("p:nth-child(3)")
+    .textContent.split(" ")[1];
 
-  if (formContainer.style.display === "none") {
-    formContainer.style.display = "block";
+  const characterData = {
+    char_name: charName,
+    char_level: charLevel,
+    char_class: charClass,
+  };
 
-    const characterDiv = event.target.closest(".character");
-    const charName = characterDiv.querySelector("h2").textContent;
-    const charLevel = characterDiv
-      .querySelector("p:nth-child(2)")
-      .textContent.split(" ")[1];
-    const charClass = characterDiv
-      .querySelector("p:nth-child(3)")
-      .textContent.split(" ")[1];
+  try {
+    const characterId = await retrieveCharacterId(characterData);
 
-    const characterData = {
-      char_name: charName,
-      char_level: charLevel,
-      char_class: charClass,
-    };
-
-    try {
-      const characterId = await retrieveCharacterId(characterData);
-
-      if (characterId) {
-        createUpdateForm(characterId, charName, charLevel, charClass);
-      } else {
-        throw new Error("Error finding character ID.");
-      }
-    } catch (error) {
-      console.log("Error:", error);
+    if (characterId) {
+      createUpdateForm(characterId, charName, charLevel, charClass);
+    } else {
+      throw new Error("Error finding character ID.");
     }
+  } catch (error) {
+    console.log("Error:", error);
   }
 }
 
