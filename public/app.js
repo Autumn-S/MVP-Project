@@ -128,7 +128,7 @@ async function deleteCharacter(characterData) {
       // Reload the page
       location.reload();
     } else {
-      console.log("Error deleting character.");
+      throw new Error("Error deleting character.");
     }
   } catch (error) {
     console.log("Error:", error);
