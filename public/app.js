@@ -194,36 +194,36 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
   const updateForm = document.createElement("form");
   updateForm.id = "updateForm";
   updateForm.innerHTML = `
-      <button class="close"></button>
-      <br>
-      <label for="charName">Name:</label>
-      <input type="text" id="charName" name="charName" value="${charName}"><br>
-  
-      <label for="charLevel">Level:</label>
-      <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
-  
-      <label for="charClass">Class:</label>
-      <select id="charClass" name="charClass">
-        <option value="Druid" ${
-          charClass === "Druid" ? "selected" : ""
-        }>Druid</option>
-        <option value="Sorceress" ${
-          charClass === "Sorceress" ? "selected" : ""
-        }>Sorceress</option>
-        <option value="Necromancer" ${
-          charClass === "Necromancer" ? "selected" : ""
-        }>Necromancer</option>
-        <option value="Rogue" ${
-          charClass === "Rogue" ? "selected" : ""
-        }>Rogue</option>
-        <option value="Barbarian" ${
-          charClass === "Barbarian" ? "selected" : ""
-        }>Barbarian</option>
-      </select>
-      <br>
-  
-      <button type="submit">Update Character</button>
-    `;
+        <button class="close"></button>
+        <br>
+        <label for="charName">Name:</label>
+        <input type="text" id="charName" name="charName" value="${charName}"><br>
+    
+        <label for="charLevel">Level:</label>
+        <input type="number" id="charLevel" name="charLevel" value="${charLevel}"><br>
+    
+        <label for="charClass">Class:</label>
+        <select id="charClass" name="charClass">
+          <option value="Druid" ${
+            charClass === "Druid" ? "selected" : ""
+          }>Druid</option>
+          <option value="Sorceress" ${
+            charClass === "Sorceress" ? "selected" : ""
+          }>Sorceress</option>
+          <option value="Necromancer" ${
+            charClass === "Necromancer" ? "selected" : ""
+          }>Necromancer</option>
+          <option value="Rogue" ${
+            charClass === "Rogue" ? "selected" : ""
+          }>Rogue</option>
+          <option value="Barbarian" ${
+            charClass === "Barbarian" ? "selected" : ""
+          }>Barbarian</option>
+        </select>
+        <br>
+    
+        <button type="submit">Update Character</button>
+      `;
 
   updateForm.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -243,12 +243,14 @@ function createUpdateForm(characterId, charName, charLevel, charClass) {
         },
         body: JSON.stringify(updatedCharacterData),
       });
-      alert("Error updating character.");
-      setTimeout(() => {
-        location.reload();
-      }, 500);
+      if (!response.ok) {
+        throw new Error("Error updating character.");
+      }
+      formContainer.style.display = "none";
+      alert("Character updated successfully!");
     } catch (error) {
       console.error("Error:", error);
+      alert("Error updating character.");
     }
   });
 
