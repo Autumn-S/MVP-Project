@@ -327,11 +327,11 @@ document
           document
             .getElementById("characterContainer")
             .appendChild(characterDiv);
-          alert("Character created successfully!");
         } else {
           console.log(await response.text());
         }
 
+        alert("Character created successfully!");
         // Clear the form
         document.getElementById("charName").value = "";
         document.getElementById("charLevel").value = "";
