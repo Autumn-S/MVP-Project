@@ -206,8 +206,9 @@ async function handleUpdate(event) {
 
         if (response.ok) {
           alert("Character updated successfully!");
-          const data = await response.json();
-          location.reload();
+          setTimeout(() => {
+            location.reload();
+          }, 500);
         } else {
           alert("Error updating character.");
         }
